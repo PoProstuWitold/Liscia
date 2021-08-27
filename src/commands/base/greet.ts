@@ -8,7 +8,7 @@ export class GreetCommand implements ICommand {
     commandNames = ['greet', 'hello']
 
     getHelpMessage(commandPrefix: string): string {
-    	return `Use ${commandPrefix}greet to get a greeting.`
+    	return `Use **${commandPrefix}greet** to get a greeting.`
     }
 
     async run(parsedUserCommand: CommandContext): Promise<void> {

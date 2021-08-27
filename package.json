@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev src/server.ts",
-    "js": "tsc && node dist/server.js",
+    "dev": "ts-node-dev src/index.ts",
+    "js": "tsc && node dist/index.js",
     "watch": "tsc -w",
-    "prod": "tsc && pm2 start dist/server.js",
+    "prod": "tsc && pm2 start dist/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix"
   },
   "dependencies": {

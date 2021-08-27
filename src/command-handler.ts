@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { ICommand, GreetCommand, HelpCommand } from './commands/';
+import { ICommand, GreetCommand, HelpCommand, ServerInfoCommand } from './commands/';
 import { CommandContext } from './models/command-context';
 import { reactor } from './reactions/reactor';
 import { botConfig } from './config/config'
@@ -9,12 +9,13 @@ import { createMessageEmbed } from './utils/createEmbedMessage';
 export class CommandHandler {
     private commands: ICommand[]
 
-    private readonly prefix: string
-
-    constructor(prefix: string) {
+    constructor(
+        private readonly prefix: string
+    ) {
     	const commandClasses = [
     		// TODO: Add more commands here.
-    		GreetCommand
+    		GreetCommand,
+    		ServerInfoCommand
     	]
 
     	this.commands = commandClasses.map((CommandClass) => new CommandClass())
