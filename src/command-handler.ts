@@ -1,12 +1,13 @@
 import { Message } from 'discord.js';
-import { Command, GreetCommand, HelpCommand } from './commands/';
+import { ICommand, GreetCommand, HelpCommand } from './commands/';
 import { CommandContext } from './models/command-context';
 import { reactor } from './reactions/reactor';
 import { botConfig } from './config/config'
+import { createMessageEmbed } from './utils/createEmbedMessage';
 
 /** Handler for bot commands issued by users. */
 export class CommandHandler {
-    private commands: Command[]
+    private commands: ICommand[]
 
     private readonly prefix: string
 
@@ -37,11 +38,15 @@ export class CommandHandler {
     		command.commandNames.includes(commandContext.parsedCommandName),
     	)
 
+    	let embed
+
     	if (!matchedCommand) {
-    		await message.reply(`I don't recognize that command. Try ${botConfig.prefix}help.`)
+    		embed = createMessageEmbed({ title: 'Command not found', description: `I don't recognize that command. Try **${botConfig.prefix}help**` })
+    		await message.reply({ embeds: [embed] })
     		await reactor.failure(message)
     	} else if (!allowedCommands.includes(matchedCommand)) {
-    		await message.reply(`You aren't allowed to use that command. Try ${botConfig.prefix}help.`)
+    		embed = createMessageEmbed({ title: 'Permission denied', description: `You aren't allowed to use that command. Try **${botConfig.prefix}help**` })
+    		await message.reply({ embeds: [embed] })
     		await reactor.failure(message)
     	} else {
     		await matchedCommand

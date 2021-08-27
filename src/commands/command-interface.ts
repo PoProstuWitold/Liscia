@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { CommandContext } from '../models/command-context';
 
-export interface Command {
+export interface ICommand {
     /**
      * List of aliases for the command.
      *
      * The first name in the list is the primary command name.
      */
     readonly commandNames: string[]
-
+    
     /** Usage documentation. */
     getHelpMessage(commandPrefix: string): string
 

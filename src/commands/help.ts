@@ -2,17 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { CommandContext } from '../models/command-context'
-import { Command } from './';
+import { ICommand } from './';
 import { botConfig } from '../config/config'
 
 import { createMessageEmbed } from '../utils/createEmbedMessage'
 
-export class HelpCommand implements Command {
+export class HelpCommand implements ICommand {
     readonly commandNames = ['help', 'halp', 'hlep']
 
-    private commands: Command[]
+    private commands: ICommand[]
 
-    constructor(commands: Command[]) {
+    constructor(commands: ICommand[]) {
     	this.commands = commands
     }
 
@@ -28,7 +28,7 @@ export class HelpCommand implements Command {
     		)
     		const embed = createMessageEmbed({ title: 'List of avaible commands', description: `${commandNames.join(
     			', ',
-    		)}. Try ${botConfig.prefix}help ${commandNames[0]} to learn more about one of them` })
+    		)}. Try **${botConfig.prefix}help** ${commandNames[0]} to learn more about one of them` })
 
     		await commandContext.originalMessage.reply({ embeds: [embed] })
 
@@ -40,26 +40,27 @@ export class HelpCommand implements Command {
     	)
 
     	if (!matchedCommand) {
-    		await commandContext.originalMessage.reply(
-    			'I don\'t know about that command :(. Try !help to find all commands you can use.',
-    		)
+    		const embed = createMessageEmbed({
+    			title: 'Command not found', 
+    			description: `I don't know about that command. Try **${botConfig.prefix}help** to find all commands you can use.`
+    		})
+    		await commandContext.originalMessage.reply({ embeds: [embed] })
 
     		throw Error('Unrecognized command')
     	}
     	if (allowedCommands.includes(matchedCommand)) {
-    		await commandContext.originalMessage.reply(
-    			this.buildHelpMessageForCommand(matchedCommand, commandContext)
-    		)
+    		const embed = createMessageEmbed({ title: `${matchedCommand.commandNames[0]}`, description: `${this.buildHelpMessageForCommand(matchedCommand, commandContext)}` })
+    		await commandContext.originalMessage.reply({ embeds: [embed] })
     	}
     }
 
     private buildHelpMessageForCommand(
-    	command: Command,
+    	command: ICommand,
     	context: CommandContext,
     ): string {
     	return `${command.getHelpMessage(
     		context.commandPrefix,
-    	)}\nCommand aliases: ${command.commandNames.join(', ')}`
+    	)}\nCommand aliases: **${command.commandNames.join(', ')}**`
     }
 
     hasPermissionToRun(commandContext: CommandContext): boolean {

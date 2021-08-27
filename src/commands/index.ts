@@ -1,5 +1,5 @@
 /** COMMAND INTERFACE */
-export * from './command'
+export * from './command-interface'
 
 /** HELP COMMAND */
 export * from './help'

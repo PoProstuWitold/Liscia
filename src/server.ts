@@ -20,16 +20,23 @@ client.once('ready', () => {
 	client.user?.setActivity('Nekopara')
 })
 
-client.on('messageCreate', (message: Message) => {
-	commandHandler.handleMessage(message)
-})
-
-client.on('interactionCreate', interaction => {
-	console.log(interaction)
-})
-
-client.on('error', (err) => {
-	console.error('Discord client error!', err)
-})
+client
+	.on('messageCreate', (message: Message) => {
+	    commandHandler.handleMessage(message)
+	})
+	.on('interactionCreate', interaction => {
+	    console.log(interaction)
+	})
+	.on('error', (err) => {
+	    console.error('Discord client error!', err)
+	})
+	.on('reconnecting', () => {
+	    console.warn('Liscia is reconnecting...')
+	})
+	.on('disconnect', () => {
+	    console.warn('Warning! Liscia has disconnected!')
+	})
 
 client.login(botConfig.token)
+
+process.on('unhandledRejection', err => console.error(err))

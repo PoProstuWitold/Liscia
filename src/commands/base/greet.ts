@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { CommandContext } from '../../models/command-context';
-import { Command } from '../';
+import { ICommand } from '../';
 
-export class GreetCommand implements Command {
+export class GreetCommand implements ICommand {
     commandNames = ['greet', 'hello']
 
     getHelpMessage(commandPrefix: string): string {
