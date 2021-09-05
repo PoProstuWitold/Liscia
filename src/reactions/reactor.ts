@@ -1,5 +1,5 @@
 import { Message } from 'discord.js'
-import { botConfig } from '../config/config'
+import { botConfig } from '../config'
 
 const ACK_REACTIONS = ['👍', '🎮', '💚', '🍜']
 const EXPIRED_REACTIONS = ['🖤']

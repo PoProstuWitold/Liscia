@@ -1,5 +1,5 @@
 import { MessageEmbed, ColorResolvable } from 'discord.js'
-import { botConfig } from '../config/config'
+import { botConfig } from '../config'
 
 interface MessageEmbedContent {
     title: string

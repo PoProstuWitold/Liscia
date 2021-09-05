@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message } from 'discord.js'
 
 /** A user-given command extracted from a message. */
 export class CommandContext {
