@@ -24,7 +24,7 @@ export class DiscordBot extends BotClient {
     public async start(): Promise<DiscordBot> {
     	this.once('ready', () => {
     		this.commands.load()
-    		console.log(`Logged in as ${this.user?.tag}! GLHF!`)
+    		this.logger.info(`Logged in as ${this.user?.tag}! GLHF!`)
     		this.user?.setActivity(this.config.activity)
     	})
         
@@ -41,16 +41,16 @@ export class DiscordBot extends BotClient {
     			this.commands.handle(message)
     		})
     		.on('interactionCreate', interaction => {
-    			console.log(interaction)
+    			this.logger.info(interaction)
     		})
     		.on('error', (err) => {
-    			console.error('Discord client error!', err)
+    			this.logger.error('Discord client error!', err)
     		})
     		.on('reconnecting', () => {
-    			console.warn('Liscia is reconnecting...')
+    			this.logger.warn('Liscia is reconnecting...')
     		})
     		.on('disconnect', () => {
-    			console.warn('Warning! Liscia has disconnected!')
+    			this.logger.warn('Warning! Liscia has disconnected!')
     		})
     }
 }

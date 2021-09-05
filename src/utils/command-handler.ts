@@ -32,7 +32,6 @@ export class CommandHandler extends Collection<string, ICommandComponent> {
     				if (Number(command.meta.aliases?.length) > 0) {
     					command.meta.aliases?.forEach(alias => {
     						this.aliases.set(alias, command.meta.name)
-    						console.log('alliases', this.aliases)
     					})
     				}
     				this.set(command.meta.name, command)
@@ -52,7 +51,6 @@ export class CommandHandler extends Collection<string, ICommandComponent> {
 
     	if (message.author.bot || !this.isCommand(message)) {
     		// For some reasons always get triggered even if command it's valid
-    	    // console.log(this.isCommand(message))
     		return
     	}
 

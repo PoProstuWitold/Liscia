@@ -5,9 +5,7 @@ import { createLogger } from './utils/logger'
 import { botConfig } from './config'
 import { DiscordBot } from './structures/discordBot'
 import { Intents, LimitedCollection, Options } from 'discord.js'
-const intents = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
 const log = createLogger('shardingmanager', botConfig.debug)
-
 
 const client = new DiscordBot({
 	allowedMentions: { parse: ['users'] },
@@ -29,7 +27,7 @@ const client = new DiscordBot({
 			})
 		}
 	}),
-	intents
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
 })
 
 client.start()
@@ -39,7 +37,6 @@ process.on('unhandledRejection', err => {
 })
 
 process.on('uncaughtException', err => {
-	console.log('gowno')
 	log.error('UNCAUGHT_EXCEPTION: ', err)
 	log.warn('Uncaught Exception detected, restarting...')
 	process.exit(1)

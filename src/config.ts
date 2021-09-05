@@ -1,4 +1,8 @@
 import { ActivityType, ColorResolvable } from 'discord.js'
+import { createLogger } from './utils/logger'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const log = createLogger('config', true)
 /**
 *    Discord bot config.
 **/
@@ -7,13 +11,13 @@ if(!process.env.TOKEN) {
 }
 
 if(!process.env.YOUTUBE_API_KEY) {
-	console.warn('Youtube API KEY not provided')
+	log.warn('Youtube API KEY not provided')
 }
 
 export type Status = { type: 'PLAYING' | 'STREAMING' | 'LISTENING' | 'WATCHING' | 'CUSTOM' | 'COMPETING'; activity: string; }
 
 export type IBotConfig = {
-    token: string
+    token: string | undefined
     prefix: string
     botOwnerRoleName: string
     youtubeAPIkey: string
@@ -32,7 +36,7 @@ export type IBotConfig = {
 }
   
 export const botConfig: IBotConfig = {
-	token: process.env.TOKEN,
+	token: process.env.TOKEN || undefined,
 	prefix: '$$',
 	botOwnerRoleName: 'bot-owner',
 	youtubeAPIkey: '',
@@ -44,7 +48,7 @@ export const botConfig: IBotConfig = {
 	fetchAllUsers: true,
 	status: {
 		type: process.env.STATUS_TYPE?.toUpperCase() as ActivityType | null ?? 'LISTENING',
-		activity: process.env.CONFIG_STATUS_ACTIVITY ?? 'music on {guildsCount} servers'
+		activity: process.env.STATUS_ACTIVITY ?? 'music on {guildsCount} servers'
 	},
 	enableReactions: true,
 	primaryColor: [123, 17, 39], //'#7B1127', //Liscia's red
