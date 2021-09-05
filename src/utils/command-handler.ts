@@ -7,7 +7,7 @@ import { Message, Collection, Snowflake, TextChannel } from 'discord.js'
 import { promises as fs } from 'fs'
 import { parse, resolve } from 'path'
 import { DiscordBot } from '../structures/discordBot'
-import { reactor } from '../reactions/reactor'
+import { reactor } from './reactor'
 import { createMessageEmbed } from './createEmbedMessage'
 import { ICommandComponent } from '../typings'
 
