@@ -7,7 +7,7 @@ import { Client, Message } from 'discord.js'
 export abstract class BaseCommand implements ICommandComponent {
 	public constructor(public client: Client, public meta: ICommandComponent['meta']) {}
 
-	public execute(message: Message): any {}
+	public execute(message: Message, args: string[]): any {}
 
 	public getHelpMessage(commandPrefix: string): string {
 		return 'Please, implement help message'

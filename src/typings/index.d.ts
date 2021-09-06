@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { ServerQueue } from '../structures/serverQueue'
 import { DiscordBot } from '../structures/discordBot'
-import { Client as OClient, ClientEvents, Guild as OGuild, Message } from 'discord.js'
+import { Client as OClient, ClientEvents, Guild as OGuild, Message, PermissionString } from 'discord.js'
 import { Readable } from 'stream'
 
 export interface ICommandComponent {
@@ -14,10 +14,10 @@ export interface ICommandComponent {
         name: string
         description?: string
         usage?: string
+        permissions: Array<PermissionString>
     }
     execute(message: Message, args: string[]): any
     getHelpMessage(commandPrefix: string): string
-    hasPermissionToRun(message: Message): boolean
 }
 
 export interface IEvent {

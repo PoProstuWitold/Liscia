@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-unused-vars */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Message, Collection, Snowflake, TextChannel } from 'discord.js'
+import { Message, Collection, Snowflake, TextChannel, Permissions, PermissionString } from 'discord.js'
 import { promises as fs } from 'fs'
 import { parse, resolve } from 'path'
 import { DiscordBot } from '../structures/discordBot'
@@ -29,6 +28,7 @@ export class CommandHandler extends Collection<string, ICommandComponent> {
     				const command = await this.import(path, this.client, { path })
     				if (command === undefined) throw new Error(`File ${file} is not a valid command file`)
     				command.meta = Object.assign(command.meta, { path })
+    				this.commands.push(command)
     				if (Number(command.meta.aliases?.length) > 0) {
     					command.meta.aliases?.forEach(alias => {
     						this.aliases.set(alias, command.meta.name)
@@ -59,6 +59,20 @@ export class CommandHandler extends Collection<string, ICommandComponent> {
     	const args = message.content.substring(this.client.config.prefix.length).trim().split(/ +/)
     	const cmd = args.shift()?.toLowerCase()
     	const command = this.get(cmd!) ?? this.get(this.aliases.get(cmd!)!)
+
+    	const commandPermissions = command?.meta.permissions
+
+    	if(commandPermissions?.length) {
+    		if(!this.hasPermissionsToRun(commandPermissions, message.member?.permissions)) {
+    			embed = createMessageEmbed({ title: 'No permission', description: 'You have no permission to run this command' })
+    			message.reply({ embeds: [embed]}).then(msg => {
+    				setTimeout(() => msg.delete().catch(e => this.client.logger.error('COMMAND_HANDLER_ERR:', e)), 5000)
+    			}).catch(e => this.client.logger.error('COMMAND_HANDLER_ERR:', e))
+    			await reactor.failure(message)
+    			return
+    		}
+    	}
+
     	if (!command || command.meta.disable) return undefined
     	if (!this.cooldowns.has(command.meta.name)) this.cooldowns.set(command.meta.name, new Collection())
         
@@ -101,6 +115,14 @@ export class CommandHandler extends Collection<string, ICommandComponent> {
     /** Determines whether or not a message is a user command. */
     private isCommand(message: Message): boolean {
     	return message.content.startsWith(this.client.config.prefix)
+    }
+
+    private hasPermissionsToRun(commandPermissions: PermissionString[] | undefined, userPermissions: Readonly<Permissions> | undefined) {
+    	if(!commandPermissions) {
+    		return true
+    	}
+
+    	return commandPermissions.every(permission => userPermissions?.toArray().includes(permission))
     }
 
     private async import(path: string, ...args: any[]): Promise<ICommandComponent | undefined> {
