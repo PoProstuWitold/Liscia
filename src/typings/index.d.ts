@@ -17,7 +17,6 @@ export interface ICommandComponent {
         permissions: Array<PermissionString>
     }
     execute(message: Message, args: string[]): any
-    getHelpMessage(commandPrefix: string): string
 }
 
 export interface IEvent {
