@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
-import { ServerQueue } from '../structures/serverQueue'
 import { DiscordBot } from '../structures/discordBot'
-import { Client as OClient, ClientEvents, Guild as OGuild, Message, PermissionString } from 'discord.js'
-import { Readable } from 'stream'
+import { Client as OClient, ClientEvents, Message, PermissionString } from 'discord.js'
 
 export interface ICommandComponent {
     meta: {
@@ -31,20 +29,7 @@ declare module 'discord.js' {
         readonly logger: DiscordBot['logger']
         readonly commands: DiscordBot['commands']
         readonly events: DiscordBot['events']
-        readonly util: DiscordBot['util']
-        readonly queue: DiscordBot['queue']
-
+        readonly distube: DiscordBot['distube']
         build(token: string): Promise<this>
     }
-    // @ts-expect-error Override
-    export interface Guild extends OGuild {
-        queue: ServerQueue | null
-    }
-}
-export interface ISong {
-    id: string
-    title: string
-    url: string
-    thumbnail: string
-    download(): Readable
 }
