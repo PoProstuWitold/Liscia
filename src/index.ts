@@ -5,15 +5,24 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { config } from 'dotenv'
 config()
-
 import { createLogger } from './utils/logger'
 import { botConfig } from './config'
 import { DiscordBot } from './structures/discordBot'
 import { Intents, LimitedCollection, Options } from 'discord.js'
-import { Playlist, Queue, Song } from 'distube'
-const log = createLogger('shardingmanager', botConfig.debug)
+const log = createLogger('unhandled-errors', botConfig.debug)
 
 const client = new DiscordBot({
+	shards: 'auto',
+	partials: ['MESSAGE', 'REACTION'],
+	presence: {
+		status: 'online',
+		activities: [
+			{ 
+				name: botConfig.status.name, 
+				type: botConfig.status.type 
+			}
+		]
+	},
 	restTimeOffset:  0,
 	allowedMentions: { 
 		parse: [] 

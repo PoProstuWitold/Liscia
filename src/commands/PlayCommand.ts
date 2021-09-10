@@ -73,33 +73,71 @@ export class PlayCommand extends BaseCommand {
 
 			const song = args.join(' ')
 			const newmsg: any = await message.reply({
-				content: `🔍 Searching... \`\`\`${song}\`\`\``,
+				embeds: [createMessageEmbed({
+					title: '🔍 Searching... ',
+					description: `\`\`\`${song}\`\`\``
+				})],
 			}).catch(e => {
 				console.log(e)
 			})
-
+			
 			try {
-				let queue = message.client.distube.getQueue(guildId!)
-				let options = {
-					member: member as GuildMember,
-				}
-				//@ts-ignore
-				if (!queue) {
-					//@ts-ignore
-					options.textChannel = guild.channels.cache.get(channelId)
-				}
 				await message.client.distube.playVoiceChannel(channel, song, {
 					member: member as GuildMember,
 					message: message,
 					textChannel: guild.channels.cache.get(channelId)
 				})
+				let queue = message.client.distube.getQueue(guildId!)
 				//Edit the reply
-				newmsg.edit({
+
+
+				await newmsg.edit(
+					{
 					//@ts-ignore
-					content: `${queue?.songs?.length > 0 ? '👍 Added' : '🎶 Now Playing'}: \`\`\`css\n${song}\n\`\`\``,
-				}).catch((err: any)=> {
+						embeds: [createMessageEmbed({ title: `${queue?.songs?.length > 1 ? '👍 Added' : '🎶 Now Playing'}`, 
+							description: ` 
+                            \`\`\`css\n${song}\n\`\`\`
+                        ` })],
+				    }
+				).catch((err: any)=> {
 					console.log(err)
 				})
+				
+				setInterval(() => {
+					// console.log(queue?.songs.length)
+					let nextSong: string | undefined
+					queue?.songs[1] ? nextSong = queue?.songs[1].name : undefined
+
+					let previousSong: string | undefined
+					queue?.previousSongs[0] ? previousSong = queue?.previousSongs[0].name : undefined
+
+					queue?.songs.length === 0 ? undefined :
+						newmsg.edit(
+							{
+							//@ts-ignore
+								embeds: [
+									createMessageEmbed({ title: `There are ${queue?.songs.length} songs in queue`, description: `
+                                    **SONG INFO**
+                                    name: \`\`${queue?.songs[0].name}\`\`
+                                    duration: \`\`${queue?.songs[0].formattedDuration}\`\`
+                                    source: \`\`${queue?.songs[0].source}\`\`
+                                    streamURL: **[Download](${queue?.songs[0].streamURL})**
+
+                                    **GENERAL INFO**
+                                    volume: \`\`${queue?.volume}\`\`
+
+                                    **QUEUE INFO**
+                                    duration: \`\`${queue?.formattedDuration}\`\`
+                                    next: \`\`${nextSong}\`\`
+                                    current: \`\`${queue?.songs[0].name}\`\`
+                                    previous: \`\`${previousSong}\`\`
+                                        ` }).setImage(`${queue?.songs[0].thumbnail}`)
+								]
+							}
+						).catch((err: any)=> {
+							console.log(err)    
+						})
+				}, 5000)
 			} catch (err) {
 				// console.log(err.stack ? err.stack : err)
 				message.reply({

@@ -6,13 +6,12 @@ if(!process.env.TOKEN) {
 	throw new Error('You need to specify your Discord bot token!')
 }
 
-export type Status = { type: 'PLAYING' | 'STREAMING' | 'LISTENING' | 'WATCHING' | 'CUSTOM' | 'COMPETING'; activity: string; }
+export type Status = { type: 'PLAYING' | 'STREAMING' | 'LISTENING' | 'WATCHING' | 'CUSTOM' | 'COMPETING'; name: string; }
 
 export type IBotConfig = {
     token: string | undefined
     prefix: string
     botOwnerRoleName: string
-    youtubeAPIkey: string
     locale: string
     defaultVolume: number
     maxVolume: number
@@ -36,7 +35,6 @@ export const botConfig: IBotConfig = {
 	token: process.env.TOKEN || undefined,
 	prefix: '$$',
 	botOwnerRoleName: 'bot-owner',
-	youtubeAPIkey: '',
 	locale: 'pl',
 	defaultVolume: 50,
 	maxVolume: 100,
@@ -44,8 +42,8 @@ export const botConfig: IBotConfig = {
 	totalShards: process.env.CONFIG_TOTALSHARDS?.toLowerCase() ?? 'auto',
 	fetchAllUsers: true,
 	status: {
-		type: process.env.STATUS_TYPE?.toUpperCase() as ActivityType | null ?? 'LISTENING',
-		activity: process.env.STATUS_ACTIVITY ?? 'music on {guildsCount} servers'
+		type: process.env.STATUS_TYPE?.toUpperCase() as ActivityType | null ?? 'WATCHING',
+		name: process.env.STATUS_ACTIVITY ?? 'Nekopara 3'
 	},
 	enableReactions: true,
 	primaryColor: [123, 17, 39], //'#7B1127', //Liscia's red

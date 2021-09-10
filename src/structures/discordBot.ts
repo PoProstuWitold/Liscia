@@ -9,6 +9,7 @@ import { EventsLoader } from '../utils/event-loader'
 import { Playlist, Queue, Song, DisTube } from 'distube'
 import SpotifyPlugin from '@distube/spotify'
 import SoundCloudPlugin from '@distube/soundcloud'
+import { createMessageEmbed } from '../utils/createEmbedMessage'
 
 export class DiscordBot extends BotClient {
 
@@ -59,19 +60,18 @@ export class DiscordBot extends BotClient {
     	this.on('ready', () => {
     		this.commands.load()
     		this.logger.info(`Logged in as ${this.user?.tag}! GLHF!`)
-    		this.user?.setActivity(this.config.activity)
     	})
         
     	await this.addListeners()
 
     	this.distube
-    		.on('playSong', (queue: Queue, song: Song)=> {
+    		.on('playSong', async (queue: Queue, song: Song) => {
     			console.log('Playing new Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}`)
     		})
     		.on('addSong', (queue: Queue, song: Song) => {
     			console.log('Added a Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}` )
     		})
-    		.on('addList', (queue: Queue, playlist: Playlist) => {
+    		.on('addList', async (queue: Queue, playlist: Playlist) => {
     			console.log('Added playlist!', `queue songs length ${queue.songs.length}`, `song name: ${playlist.name}`)
     		})
     		.on('searchResult', (message, result) => {
@@ -91,6 +91,16 @@ export class DiscordBot extends BotClient {
     		})
     		.on('empty', (queue: Queue) => {
     			console.log('Channel is empty!!', /*queue.listeners?.error.name*/)
+    		})
+    		.on('searchNoResult', (message: Message, query: string) => {
+    			message.channel.send({
+    				embeds: [
+    					createMessageEmbed({
+    						title: 'Error',
+    						description: 'No results found'
+    					})
+    				]
+    			})
     		})
 
     	await this.login(this.config.token)
