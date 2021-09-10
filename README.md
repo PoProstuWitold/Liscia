@@ -1,8 +1,12 @@
 # Liscia Elfrieden - Discord bot for all purposes
 
+### IMPORTANT
+To use this bot you need to have ``ffmpeg`` installed:
+ https://www.ffmpeg.org/download.html
+
 ## Installation
 
-Use the package manage to install dependencis
+Use the package manager to install dependencies
 
 
 ```bash
@@ -18,6 +22,8 @@ yarn install
 2. Add following line: `TOKEN=YOUR_DISCORD_BOT_TOKEN`
 3. Type one of the corresponding command from ``package.json``
 
+
+No API key is required
 
 
 ## License
