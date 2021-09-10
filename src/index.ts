@@ -46,43 +46,6 @@ const client = new DiscordBot({
 client.setMaxListeners(100)
 client.start()
 
-
-client.distube
-//@ts-ignore
-	.on('playSong', (queue: Queue, song: Song)=> {
-		console.log('Playing new Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}`)
-	})
-//@ts-ignore
-	.on('addSong', (queue: Queue, song: Song) => {
-		console.log('Added a Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}` )
-	})
-//@ts-ignore
-	.on('playList', (queue: Queue, playlist: Playlist) => {
-		console.log('Playlist added', `queue songs length ${queue.songs.length}`, `song name: ${playlist.name}`)
-	})
-//@ts-ignore
-	.on('addList', (queue: Queue, playlist: Playlist) => {
-		console.log('Added playlist!', `queue songs length ${queue.songs.length}`, `song name: ${playlist.name}`)
-	})
-	.on('searchResult', (message, result) => {
-		const i = 0;
-		console.log(message, '')
-	})
-// DisTubeOptions.searchSongs = true
-	.on('searchCancel', (message) =>  console.log(message, 'Searching canceled')
-	)
-	.on('error', (message, err) => console.log(message, `An error encountered: ${err}`)
-	)
-	.on('disconnect', (queue: Queue) => {
-		console.log('DISCONNECTED!', new Date().getMilliseconds() /*queue*/)
-	})
-	.on('finish', (queue: Queue) => {
-		console.log('SONG FINISHED!', /*queue.listeners?.error.name*/)
-	})
-	.on('empty', (queue: Queue) => {
-		console.log('Channel is empty!!', /*queue.listeners?.error.name*/)
-	})
-
 process.on('unhandledRejection', err => {
 	log.error(err)
 })

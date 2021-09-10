@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Client as BotClient, ClientOptions, Message } from 'discord.js'
 import { botConfig, IBotConfig } from '../config'
 import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
 import { resolve } from 'path/posix'
 import { EventsLoader } from '../utils/event-loader'
-import DisTube from 'distube'
+import { Playlist, Queue, Song, DisTube } from 'distube'
 import SpotifyPlugin from '@distube/spotify'
 import SoundCloudPlugin from '@distube/soundcloud'
 
@@ -54,13 +56,42 @@ export class DiscordBot extends BotClient {
     }
 
     public async start(): Promise<DiscordBot> {
-    	this.once('ready', () => {
+    	this.on('ready', () => {
     		this.commands.load()
     		this.logger.info(`Logged in as ${this.user?.tag}! GLHF!`)
     		this.user?.setActivity(this.config.activity)
     	})
         
     	await this.addListeners()
+
+    	this.distube
+    		.on('playSong', (queue: Queue, song: Song)=> {
+    			console.log('Playing new Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}`)
+    		})
+    		.on('addSong', (queue: Queue, song: Song) => {
+    			console.log('Added a Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}` )
+    		})
+    		.on('addList', (queue: Queue, playlist: Playlist) => {
+    			console.log('Added playlist!', `queue songs length ${queue.songs.length}`, `song name: ${playlist.name}`)
+    		})
+    		.on('searchResult', (message, result) => {
+    			const i = 0;
+    			console.log(message, '')
+    		})
+    	// DisTubeOptions.searchSongs = true
+    		.on('searchCancel', (message) =>  console.log(message, 'Searching canceled')
+    		)
+    		.on('error', (message, err) => console.log(message, `An error encountered: ${err}`)
+    		)
+    		.on('disconnect', (queue: Queue) => {
+    			console.log('DISCONNECTED!', new Date().getMilliseconds() /*queue*/)
+    		})
+    		.on('finish', (queue: Queue) => {
+    			console.log('SONG FINISHED!', /*queue.listeners?.error.name*/)
+    		})
+    		.on('empty', (queue: Queue) => {
+    			console.log('Channel is empty!!', /*queue.listeners?.error.name*/)
+    		})
 
     	await this.login(this.config.token)
 
