@@ -13,7 +13,7 @@ const log = createLogger('unhandled-errors', botConfig.debug)
 
 const client = new DiscordBot({
 	shards: 'auto',
-	partials: ['MESSAGE', 'REACTION'],
+	partials: ['MESSAGE', 'REACTION', 'CHANNEL'],
 	presence: {
 		status: 'online',
 		activities: [
@@ -49,6 +49,8 @@ const client = new DiscordBot({
 		Intents.FLAGS.GUILDS, 
 		Intents.FLAGS.GUILD_VOICE_STATES, 
 		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+		Intents.FLAGS.DIRECT_MESSAGES
 	]
 })
 

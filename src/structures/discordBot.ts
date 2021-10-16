@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Client as BotClient, ClientOptions, Message } from 'discord.js'
+import { Client as BotClient, ClientOptions, Message, MessageReaction } from 'discord.js'
 import { botConfig, IBotConfig } from '../config'
 import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
@@ -113,8 +113,12 @@ export class DiscordBot extends BotClient {
     		.on('messageCreate', (message: Message) => {
     			this.commands.handle(message)
     		})
-    		.on('interactionCreate', interaction => {
-    			this.logger.info(interaction)
+    		.on('interactionCreate', async (interaction) => {
+    			// this.logger.info(interaction)
+
+    			if(interaction.isButton()) {
+    				// console.log(interaction)
+    			}
     		})
     		.on('error', (err) => {
     			this.logger.error('Discord client error!', err)
@@ -124,6 +128,9 @@ export class DiscordBot extends BotClient {
     		})
     		.on('disconnect', () => {
     			this.logger.warn('Warning! Liscia has disconnected!')
+    		})
+    		.on('messageReactionAdd', (reaction) => {
+    			console.log(reaction)
     		})
     }
 }

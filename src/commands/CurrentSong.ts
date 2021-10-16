@@ -70,7 +70,5 @@ export class CurrentSong extends BaseCommand {
 					console.log(err)    
 				})
 		}, 5000)
-
-		console.log(queue?.songs[0])
 	}
 }
