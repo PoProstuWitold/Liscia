@@ -8,7 +8,7 @@ import { BaseCommand } from '../structures/baseCommand'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
 import { GuildMember, Message } from 'discord.js'
 import { botConfig } from '../config'
-import emojis from '../utils/emojis'
+import { ArgsNotEmpty, IsInVoiceChannel, IsValidVoiceChannel } from '../utils/decorators/musicDecorators'
 
 @DefineCommand({
 	aliases: ['p', 'pley', 'paly'],
@@ -19,6 +19,9 @@ import emojis from '../utils/emojis'
 	permissions: ['ADMINISTRATOR']
 })
 export class PlayCommand extends BaseCommand {
+    @IsInVoiceChannel()
+    @IsValidVoiceChannel()
+    @ArgsNotEmpty()
 	public async execute(message: Message, args: string[]): Promise<void> {
 		try {
 
@@ -35,41 +38,6 @@ export class PlayCommand extends BaseCommand {
 				channel
 				//@ts-ignore
 			} = member.voice
-			// const guild = message.member?.guild
-			// const channel = message.member?.voice.channel
-			// const voiceChannel = message.member?.guild.me?.voice.channel
-			// console.log(args)
-			// console.log('channel', channel!.id)
-			if(!channel) {
-				message.reply({
-					embeds: [
-						createMessageEmbed({ title: 'Error', description: `${emojis.fail} Please join VoiceChannel First!` })
-					]
-				})
-
-				return
-			}
-
-
-			if(channel.guild.me?.voice.channel && channel.guild.me.voice.channel.id != channel.id) {
-				message.reply({
-					embeds: [
-						createMessageEmbed({ title: 'Error', description: `${emojis.fail} I am already connected somewhere else!` })
-					]
-				})
-                
-				return
-			}
-
-			if (!args[0]) {
-				message.reply({
-					embeds: [
-						createMessageEmbed({ title: 'Error', description: 'Please add a Search Query!' })
-					],
-				})
-
-				return
-			}
 
 			const song = args.join(' ')
 			const newmsg: any = await message.reply({
@@ -82,7 +50,7 @@ export class PlayCommand extends BaseCommand {
 			})
 			
 			try {
-				await message.client.distube.playVoiceChannel(channel, song, {
+				await message.client.distube.playVoiceChannel(channel!, song, {
 					member: member as GuildMember,
 					message: message,
 					textChannel: guild.channels.cache.get(channelId)
