@@ -23,17 +23,41 @@ export class QueueCommand extends BaseCommand {
     @IsValidVoiceChannel()
     @DoesMusicQueueExist()
 	public async execute(message: Message): Promise<void> {
-		const queue = message.client.distube.getQueue(message)
+		try {
+			const queue = message.client.distube.getQueue(message)
 
 
-		const q = queue!.songs.map((song, i) => `${i === 0 ? 'Playing:\n' : `${i}.`} ${song.name} - \`${song.formattedDuration}\``).join('\n')
-		message.channel.send({
-			embeds: [
-				createMessageEmbed({
-					title: '**Server Queue**',
-					description: `\n${q}`
+			const q = queue!.songs.map((song, i) => `${i === 0 ? 'Playing:\n' : `${i}.`} ${song.name} - \`${song.formattedDuration}\``).join('\n')
+			if(q.length > 1995) {
+				message.channel.send({
+					embeds: [
+						createMessageEmbed({
+							title: 'Error',
+							description: 'Queue message size exceed maxium Discord message size'
+						})
+					]
 				})
-			]
-		})
+
+				return
+			}
+			message.channel.send({
+				embeds: [
+					createMessageEmbed({
+						title: '**Server Queue**',
+						description: `\n${q}`
+					})
+				]
+			})
+		} catch (err) {
+			console.log(err)
+			message.channel.send({
+				embeds: [
+					createMessageEmbed({
+						title: 'Error',
+						description: 'Unexpected error, tell Witold as fast as possible'
+					})
+				]
+			})
+		}
 	}
 }

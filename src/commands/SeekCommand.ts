@@ -50,7 +50,7 @@ export class SeekCommand extends BaseCommand {
         	embeds: [
         		createMessageEmbed({
         			title: 'Success',
-        			description: `Seeked about \`${time}s\``
+        			description: `Seeked to \`${time}s\``
         		})
         	]
 		})

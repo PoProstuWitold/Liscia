@@ -11,7 +11,6 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 		}
 		switch (id) {
 		case 'pause':
-			console.log('pause')
 			if (queue!.paused) {
                 queue!.resume()
 			}
@@ -19,7 +18,6 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 			collected.first()?.deferUpdate()
 			break;
 		case 'resume':
-			console.log('resume')
 			if (!queue!.paused) {
                 queue!.pause()
 			}
@@ -27,12 +25,10 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 			collected.first()?.deferUpdate()
 			break;
 		case 'stop':
-			console.log('stop')
 			queue?.stop()
 			collected.first()?.deferUpdate()
 			break;
 		case 'skip':
-			console.log('skip')
 			try {
 				await queue!.skip()
 			} catch (e) {
@@ -41,17 +37,14 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 			collected.first()?.deferUpdate()
 			break;
 		case 'previous':
-			console.log('previous')
 			await queue!.previous()
 			collected.first()?.deferUpdate()
 			break;
 		case 'volume-up':
-			console.log('volume-up')
 			queue?.setVolume(queue?.volume + 10)
 			collected.first()?.deferUpdate()
 			break;
 		case 'volume-down':
-			console.log('volume-down')
 			queue?.setVolume(queue?.volume - 10)
 			collected.first()?.deferUpdate()
 			break;

@@ -47,13 +47,13 @@ export class SkipCommand extends BaseCommand {
 					})
 				]
 			})
-		} catch (e) {
-			console.log(e)
+		} catch (err) {
+			console.log(err)
 			message.channel.send({
 				embeds: [
 					createMessageEmbed({
 						title: 'Error',
-						description: 'Unexpected error, told Witold as fast as possible'
+						description: 'Unexpected error, tell Witold as fast as possible'
 					})
 				]
 			})

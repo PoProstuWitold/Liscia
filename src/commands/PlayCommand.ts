@@ -7,10 +7,11 @@
 import { DefineCommand } from '../utils/decorators/defineCommand'
 import { BaseCommand } from '../structures/baseCommand'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
-import { GuildMember, Interaction, Message, MessageActionRow, MessageButton, MessageComponentInteraction, Collection } from 'discord.js'
+import { GuildMember, Interaction, Message, MessageComponentInteraction, Collection } from 'discord.js'
 import { botConfig } from '../config'
 import { ArgsNotEmpty, IsInVoiceChannel, IsValidVoiceChannel } from '../utils/decorators/musicDecorators'
 import { songButtonCollector } from '../events/songButtonCollector'
+import { row, row2 } from '../utils/button-rows'
 
 @DefineCommand({
 	aliases: ['p', 'pley', 'paly'],
@@ -74,46 +75,6 @@ export class PlayCommand extends BaseCommand {
 				})
 				
 				setInterval(async () => {
-
-					const row = new MessageActionRow()
-						.addComponents(
-							new MessageButton()
-								.setCustomId('pause')
-								.setLabel('Pause')
-								.setStyle('SUCCESS'),
-							new MessageButton()
-								.setCustomId('resume')
-								.setLabel('Resume')
-								.setStyle('SUCCESS'),
-							new MessageButton()
-								.setCustomId('stop')
-								.setLabel('Stop')
-								.setStyle('DANGER'),
-							new MessageButton()
-								.setCustomId('skip')
-								.setLabel('Skip')
-								.setStyle('SECONDARY'),
-							new MessageButton()
-								.setCustomId('previous')
-								.setLabel('Previous')
-								.setStyle('SECONDARY')						
-						)
-
-					const row2 = new MessageActionRow()
-						.addComponents(
-							new MessageButton()
-								.setCustomId('volume-up')
-								.setLabel('Boost volume')
-								.setStyle('PRIMARY'),
-							new MessageButton()
-								.setCustomId('volume-down')
-								.setLabel('Reduce volume')
-								.setStyle('PRIMARY'),
-							new MessageButton()
-								.setLabel('GitHub')
-								.setStyle('LINK')
-								.setURL('https://github.com/PoProstuWitold')
-						)
                     
 
 					const filter = (interaction: Interaction) => {
@@ -186,7 +147,14 @@ export class PlayCommand extends BaseCommand {
 
 		} catch (err) {
 			console.log(err)
-			return
+			message.channel.send({
+				embeds: [
+					createMessageEmbed({
+						title: 'Error',
+						description: 'Unexpected error, tell Witold as fast as possible'
+					})
+				]
+			})
 		}
 	}
 }
