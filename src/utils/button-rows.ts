@@ -35,7 +35,7 @@ const row2 = new MessageActionRow()
 			.setLabel('Reduce volume')
 			.setStyle('PRIMARY'),
 		new MessageButton()
-			.setLabel('GitHub')
+			.setLabel('Author')
 			.setStyle('LINK')
 			.setURL('https://github.com/PoProstuWitold')
 	)
