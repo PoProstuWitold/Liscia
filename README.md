@@ -29,7 +29,7 @@ No API key is required
 ## TO DO
 - [x] Make basic music commands
 - [x] Add TypeScript decorators
-- [ ] Fix issues
+- [X] Fix issues
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

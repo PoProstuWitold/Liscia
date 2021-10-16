@@ -141,7 +141,7 @@ export class PlayCommand extends BaseCommand {
 					let nextSong: string | undefined
 					queue?.songs[1] ? nextSong = queue?.songs[1].name : undefined
 					let previousSong: string | undefined
-					queue?.previousSongs[0] ? previousSong = queue?.previousSongs[0].name : undefined
+					queue?.previousSongs[0] ? previousSong = queue?.previousSongs[queue?.previousSongs.length - 1].name : undefined
 					queue?.songs.length === 0 ? undefined :
 						newmsg.edit(
 							{
