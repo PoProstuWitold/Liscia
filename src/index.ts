@@ -57,7 +57,7 @@ const client = new DiscordBot({
 
 client.setMaxListeners(100)
 client.start()
-// server
+server
 process.on('unhandledRejection', err => {
 	console.log('Unhandled rejection. You may have unsupported NodeJS version')
 	log.error(err)

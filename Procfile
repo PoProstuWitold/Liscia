@@ -1,1 +1,1 @@
-worker: npm run start:pm2
+worker: node dist/src/index.js
