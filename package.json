@@ -7,11 +7,11 @@
   "license": "MIT",
   "scripts": {
     "build-ts": "tsc",
-    "build": "npm run build-ts && npm run lint && npm run copy-static-assets",
+    "build": "yarn build-ts && yarn lint && yarn copy-static-assets",
     "dev": "ts-node-dev src/index.ts",
     "js": "tsc && node dist/src/index.js",
     "watch": "tsc -w",
-    "prod": "npm run build && pm2 start --name=Liscia dist/src/index.js",
+    "prod": "yarn build && pm2 start --name=Liscia dist/src/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix",
     "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "copy-static-assets": "ts-node copyStaticAssets.ts"
