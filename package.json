@@ -6,13 +6,15 @@
   "author": "PoProstuWitold",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build-ts": "tsc",
+    "build": "npm run build-ts && npm run lint && npm run copy-static-assets",
     "dev": "ts-node-dev src/index.ts",
-    "js": "tsc && node dist/index.js",
+    "js": "tsc && node dist/src/index.js",
     "watch": "tsc -w",
-    "prod": "tsc && pm2 start dist/index.js",
+    "prod": "npm run build && pm2 start --name=Liscia dist/src/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix",
-    "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css"
+    "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
+    "copy-static-assets": "ts-node copyStaticAssets.ts"
   },
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
@@ -27,11 +29,12 @@
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "libsodium-wrappers": "^0.7.9",
-    "pm2": "^5.1.0",
+    "pm2": "^5.1.2",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
     "pretty-ms": "^7.0.1",
     "pug": "^3.0.2",
+    "shelljs": "^0.8.4",
     "tailwindcss": "^2.2.17",
     "winston": "^3.3.3"
   },
@@ -40,6 +43,7 @@
     "@types/errorhandler": "^1.5.0",
     "@types/express": "^4.17.13",
     "@types/node": "^16.9.0",
+    "@types/shelljs": "^0.8.9",
     "@types/tailwindcss": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
