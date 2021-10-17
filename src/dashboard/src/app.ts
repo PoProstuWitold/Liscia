@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import path from 'path'
 import compression from 'compression'
 const app = express()
@@ -17,13 +17,13 @@ app.use(
 
 
 //routes
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
 	return res.render('index', {
 		title: 'Liscia Elfrieden'
 	})
 })
 
-app.get('/about', (req, res) => {
+app.get('/about', (req: Request, res: Response) => {
 	return res.render('about', {
 		title: 'About'
 	})
