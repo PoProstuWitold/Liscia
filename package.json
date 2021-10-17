@@ -12,7 +12,7 @@
     "dev": "ts-node-dev src/index.ts",
     "js": "tsc && node dist/src/index.js",
     "watch": "tsc -w",
-    "prod": "yarn preinstall && yarn build && pm2 start --name=Liscia dist/src/index.js",
+    "prod": "yarn preinstall && yarn build && node dist/src/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix",
     "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "copy-static-assets": "ts-node copyStaticAssets.ts"
