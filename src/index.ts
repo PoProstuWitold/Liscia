@@ -58,10 +58,10 @@ const client = new DiscordBot({
 client.setMaxListeners(100)
 client.start()
 // server
-process.on('unhandledRejection', err => {
-	console.log('Unhandled rejection')
-	log.error(err)
-})
+// process.on('unhandledRejection', err => {
+// 	console.log('Unhandled rejection')
+// 	log.error(err)
+// })
 
 process.on('uncaughtException', err => {
 	log.error('UNCAUGHT_EXCEPTION: ', err)

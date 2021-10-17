@@ -16,8 +16,7 @@
     "lint": "eslint . --config=.eslintrc.json --fix",
     "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
-    "postinstall": "yarn build",
-    "start": "node dist/src/index.js"
+    "postinstall": "yarn build"
   },
   "dependencies": {
     "@discordjs/opus": "^0.6.0",

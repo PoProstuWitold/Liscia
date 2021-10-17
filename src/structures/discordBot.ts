@@ -38,17 +38,17 @@ export class DiscordBot extends BotClient {
     		},
     		youtubeDL: true,
     		updateYouTubeDL: true,
-    		// plugins: [
-    		// 	new SpotifyPlugin({
-    		// 		api: {
-    		// 			clientId: botConfig.SPOTIFY_API.clientId,
-    		// 			clientSecret: botConfig.SPOTIFY_API.clientSecret,
-    		// 		},
-    		// 		parallel: true,
-    		// 		emitEventsAfterFetching: true
-    		// 	}),
-    		// 	new SoundCloudPlugin()
-    		// ]
+    		plugins: [
+    			new SpotifyPlugin({
+    				api: {
+    					clientId: botConfig.SPOTIFY_API.clientId,
+    					clientSecret: botConfig.SPOTIFY_API.clientSecret,
+    				},
+    				parallel: true,
+    				emitEventsAfterFetching: true
+    			}),
+    			new SoundCloudPlugin()
+    		]
     	}
     )
 
