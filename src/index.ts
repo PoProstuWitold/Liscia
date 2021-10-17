@@ -59,6 +59,7 @@ client.setMaxListeners(100)
 client.start()
 // server
 process.on('unhandledRejection', err => {
+	console.log('Unhandled rejection')
 	log.error(err)
 })
 
