@@ -12,7 +12,7 @@
     "dev": "ts-node-dev src/index.ts",
     "js": "tsc && node dist/src/index.js",
     "watch": "tsc -w",
-    "prod": "yarn preinstall && yarn build && node dist/src/index.js",
+    "prod": "yarn preinstall && yarn build && pm2 start --name=Liscia dist/src/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix",
     "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "copy-static-assets": "ts-node copyStaticAssets.ts"
@@ -30,7 +30,6 @@
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "libsodium-wrappers": "^0.7.9",
-    "pm2": "^5.1.2",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
     "pretty-ms": "^7.0.1",
