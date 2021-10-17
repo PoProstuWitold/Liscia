@@ -9,6 +9,7 @@ import { createLogger } from './utils/logger'
 import { botConfig } from './config'
 import { DiscordBot } from './structures/discordBot'
 import { Intents, LimitedCollection, Options } from 'discord.js'
+import server from './dashboard/src/server'
 const log = createLogger('unhandled-errors', botConfig.debug)
 
 const client = new DiscordBot({
@@ -56,7 +57,7 @@ const client = new DiscordBot({
 
 client.setMaxListeners(100)
 client.start()
-
+server
 process.on('unhandledRejection', err => {
 	log.error(err)
 })
