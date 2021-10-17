@@ -24,7 +24,7 @@ export type IBotConfig = {
     secondaryColor: ColorResolvable
     thirdColor: ColorResolvable
     activity: string,
-    SPOTIFY_API?: {
+    SPOTIFY_API: {
         clientId: string, 
         clientSecret: string
     },
@@ -50,8 +50,8 @@ export const botConfig: IBotConfig = {
 	secondaryColor: [201, 175, 102], // '#C9AF66', //Liscia's yellow
 	thirdColor: [229, 228, 226], // '#E5E4E2' //Liscia's white
 	activity: 'Nekopara',
-	// SPOTIFY_API: {
-	// 	clientId: 'e6e7af6d2dde4ae0a2bf8917c6deddf2',
-	// 	clientSecret: 'd164f2a2fbd94c68ae9fe61775298bfe'
-	// }
+	SPOTIFY_API: {
+		clientId: 'e6e7af6d2dde4ae0a2bf8917c6deddf2',
+		clientSecret: 'd164f2a2fbd94c68ae9fe61775298bfe'
+	}
 }
