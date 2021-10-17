@@ -4,7 +4,7 @@ import { Client as BotClient, ClientOptions, Message, MessageReaction } from 'di
 import { botConfig, IBotConfig } from '../config'
 import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
-import { resolve } from 'path/posix'
+import { resolve } from 'path'
 import { EventsLoader } from '../utils/event-loader'
 import { Playlist, Queue, Song, DisTube } from 'distube'
 import SpotifyPlugin from '@distube/spotify'
