@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MessageComponentInteraction, Collection, Message } from 'discord.js'
+import util from 'util'
+const wait = util.promisify(setTimeout)
 
 export const songButtonCollector = async (collected: Collection<string, MessageComponentInteraction>, message: Message): Promise<any> => {
 	try {
@@ -13,6 +16,8 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 		case 'pause':
 			if (queue!.paused) {
                 queue!.resume()
+                collected.first()?.deferUpdate()
+                break
 			}
             queue!.pause()
 			collected.first()?.deferUpdate()
@@ -20,6 +25,8 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 		case 'resume':
 			if (!queue!.paused) {
                 queue!.pause()
+                collected.first()?.deferUpdate()
+                break
 			}
             queue!.resume()
 			collected.first()?.deferUpdate()
@@ -41,12 +48,14 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 			collected.first()?.deferUpdate()
 			break;
 		case 'volume-up':
+			await collected.first()?.deferUpdate()
+			await wait(1000)
 			queue?.setVolume(queue?.volume + 10)
-			collected.first()?.deferUpdate()
 			break;
 		case 'volume-down':
+			await collected.first()?.deferUpdate()
+			await wait(1000)
 			queue?.setVolume(queue?.volume - 10)
-			collected.first()?.deferUpdate()
 			break;
     
 		default:

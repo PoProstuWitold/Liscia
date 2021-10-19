@@ -13,7 +13,11 @@ const row = new MessageActionRow()
 		new MessageButton()
 			.setCustomId('stop')
 			.setLabel('Stop')
-			.setStyle('DANGER'),
+			.setStyle('DANGER')						
+	)
+
+const row2 = new MessageActionRow()
+	.addComponents(
 		new MessageButton()
 			.setCustomId('skip')
 			.setLabel('Next')
@@ -24,15 +28,15 @@ const row = new MessageActionRow()
 			.setStyle('SECONDARY')						
 	)
 
-const row2 = new MessageActionRow()
+const row3 = new MessageActionRow()
 	.addComponents(
 		new MessageButton()
 			.setCustomId('volume-up')
-			.setLabel('Boost volume')
+			.setLabel('Volume Up')
 			.setStyle('PRIMARY'),
 		new MessageButton()
 			.setCustomId('volume-down')
-			.setLabel('Reduce volume')
+			.setLabel('Volume Down')
 			.setStyle('PRIMARY'),
 		new MessageButton()
 			.setLabel('Author')
@@ -40,4 +44,4 @@ const row2 = new MessageActionRow()
 			.setURL('https://github.com/PoProstuWitold')
 	)
 
-export { row, row2 }
+export { row, row2, row3 }

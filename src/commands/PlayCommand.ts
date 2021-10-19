@@ -11,7 +11,7 @@ import { GuildMember, Interaction, Message, MessageComponentInteraction, Collect
 import { botConfig } from '../config'
 import { ArgsNotEmpty, IsInVoiceChannel, IsValidVoiceChannel } from '../utils/decorators/musicDecorators'
 import { songButtonCollector } from '../events/songButtonCollector'
-import { row, row2 } from '../utils/button-rows'
+import { row, row2, row3 } from '../utils/button-rows'
 
 @DefineCommand({
 	aliases: ['p', 'pley', 'paly'],
@@ -108,25 +108,23 @@ export class PlayCommand extends BaseCommand {
 							{
 							//@ts-ignore
 								embeds: [
-									createMessageEmbed({ title: `There are ${queue?.songs.length} songs in queue`, description: `
-                                    **SONG INFO**
-                                    name: \`\`${queue?.songs[0].name}\`\`
-                                    duration: \`\`${queue?.songs[0].formattedDuration}\`\`
-                                    source: \`\`${queue?.songs[0].source}\`\`
-                                    streamURL: **[Download](${queue?.songs[0].streamURL})**
-
-                                    **GENERAL INFO**
-                                    volume: \`\`${queue?.volume}\`\`
-
-                                    **QUEUE INFO**
-                                    duration: \`\`${queue?.formattedDuration}\`\`
-                                    next: \`\`${nextSong}\`\`
-                                    current: \`\`${queue?.songs[0].name}\`\`
-                                    previous: \`\`${previousSong}\`\`
-                                        ` }).setImage(`${queue?.songs[0].thumbnail}`)
+									createMessageEmbed({ title: 'Music info', description:
+                                    `There are ${queue?.songs.length} songs in queue`}).setImage(`${queue?.songs[0].thumbnail}`)
+                                    .addField('**SONG INFO', '')
+                                    .addField('name', `${queue?.songs[0].name}`)
+                                    .addField('duration', `${queue?.songs[0].formattedDuration}`)
+                                    .addField('source', `${queue?.songs[0].source}`, true)
+                                    .addField('download', `**[Download](${queue?.songs[0].streamURL})**`, true)
+                                    .addField('url', `${queue?.songs[0].url}`)
+                                    .addField('**QUEUE INFO**', '')
+                                    .addField('volume', `${queue?.volume}`)
+                                    .addField('duration', `${queue?.formattedDuration}`)
+                                    .addField('next', `${nextSong}`)
+                                    .addField('current', `${queue?.songs[0].name}`)
+                                    .addField('previous', `${previousSong}`)
 								],
 								components: [
-									row, row2
+									row, row2, row3
 								]
 							}
 						).catch((err: any)=> {
