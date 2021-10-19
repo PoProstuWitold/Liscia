@@ -110,13 +110,13 @@ export class PlayCommand extends BaseCommand {
 								embeds: [
 									createMessageEmbed({ title: 'Music info', description:
                                     `There are ${queue?.songs.length} songs in queue`}).setImage(`${queue?.songs[0].thumbnail}`)
-                                    .addField('**SONG INFO', '')
+                                    .addField('**SONG INFO', 'Basic song info')
                                     .addField('name', `${queue?.songs[0].name}`)
                                     .addField('duration', `${queue?.songs[0].formattedDuration}`)
                                     .addField('source', `${queue?.songs[0].source}`, true)
                                     .addField('download', `**[Download](${queue?.songs[0].streamURL})**`, true)
                                     .addField('url', `${queue?.songs[0].url}`)
-                                    .addField('**QUEUE INFO**', '')
+                                    .addField('**QUEUE INFO**', 'Basic queue info')
                                     .addField('volume', `${queue?.volume}`)
                                     .addField('duration', `${queue?.formattedDuration}`)
                                     .addField('next', `${nextSong}`)
