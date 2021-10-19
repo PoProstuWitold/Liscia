@@ -1,2 +1,2 @@
-worker: node dist/src/index.js
-web: node dist/src/dashboard/src/server.js
+worker: pm2-runtime start --env production dist/src/index.js
+web: pm2-runtime start --env production dist/src/dashboard/src/server.js
