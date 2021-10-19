@@ -12,6 +12,7 @@ import { botConfig } from '../config'
 import { ArgsNotEmpty, IsInVoiceChannel, IsValidVoiceChannel } from '../utils/decorators/musicDecorators'
 import { songButtonCollector } from '../events/songButtonCollector'
 import { row, row2, row3 } from '../utils/button-rows'
+import { currentSongEmbed } from '../utils/currentSongEmbed'
 
 @DefineCommand({
 	aliases: ['p', 'pley', 'paly'],
@@ -100,28 +101,15 @@ export class PlayCommand extends BaseCommand {
 
 					// console.log(queue?.songs.length)
 					let nextSong: string | undefined
-					queue?.songs[1] ? nextSong = queue?.songs[1].name : undefined
+					queue?.songs[1] ? nextSong = queue?.songs[1].name : nextSong = 'No next song'
 					let previousSong: string | undefined
-					queue?.previousSongs[0] ? previousSong = queue?.previousSongs[queue?.previousSongs.length - 1].name : undefined
+					queue?.previousSongs[0] ? previousSong = queue?.previousSongs[queue?.previousSongs.length - 1].name : previousSong = 'No previous song'
 					queue?.songs.length === 0 ? undefined :
 						newmsg.edit(
 							{
 							//@ts-ignore
 								embeds: [
-									createMessageEmbed({ title: 'Music info', description:
-                                        `There are ${queue?.songs.length} songs in queue`}).setImage(`${queue?.songs[0].thumbnail}`)
-                                        .addField('**SONG INFO**', 'Basic song info')
-                                        .addField('Name', `${queue?.songs[0].name}`)
-                                        .addField('Duration', `${queue?.songs[0].formattedDuration}`, true)
-                                        .addField('Source', `${queue?.songs[0].source}`, true)
-                                        .addField('download', `**[Download](${queue?.songs[0].streamURL})**`, true)
-                                        .addField('url', `**[Link](${queue?.songs[0].url})**`, true)
-                                        .addField('**QUEUE INFO**', 'Basic queue info')
-                                        .addField('Volume', `${queue?.volume}`, true)
-                                        .addField('Duration', `${queue?.formattedDuration}`, true)
-                                        .addField('Next', `${nextSong}`)
-                                        .addField('Current', `${queue?.songs[0].name}`)
-                                        .addField('Previous', `${previousSong}`)
+									currentSongEmbed(queue, nextSong, previousSong)
 								],
 								components: [
 									row, row2, row3
