@@ -71,18 +71,18 @@ export class CurrentSong extends BaseCommand {
 							embeds: [
 								createMessageEmbed({ title: 'Music info', description:
                                     `There are ${queue?.songs.length} songs in queue`}).setImage(`${queue?.songs[0].thumbnail}`)
-									.addField('**SONG INFO', 'Basic song info')
-									.addField('name', `${queue?.songs[0].name}`)
-									.addField('duration', `${queue?.songs[0].formattedDuration}`)
-									.addField('source', `${queue?.songs[0].source}`, true)
+									.addField('**SONG INFO**', 'Basic song info')
+									.addField('Name', `${queue?.songs[0].name}`)
+									.addField('Duration', `${queue?.songs[0].formattedDuration}`, true)
+									.addField('Source', `${queue?.songs[0].source}`, true)
 									.addField('download', `**[Download](${queue?.songs[0].streamURL})**`, true)
-									.addField('url', `${queue?.songs[0].url}`)
+									.addField('url', `**[Link](${queue?.songs[0].url})**`, true)
 									.addField('**QUEUE INFO**', 'Basic queue info')
-									.addField('volume', `${queue?.volume}`)
-									.addField('duration', `${queue?.formattedDuration}`)
-									.addField('next', `${nextSong}`)
-									.addField('current', `${queue?.songs[0].name}`)
-									.addField('previous', `${previousSong}`)
+									.addField('Volume', `${queue?.volume}`, true)
+									.addField('Duration', `${queue?.formattedDuration}`, true)
+									.addField('Next', `${nextSong}`)
+									.addField('Current', `${queue?.songs[0].name}`)
+									.addField('Previous', `${previousSong}`)
 							],
 							components: [
 								row, row2, row3

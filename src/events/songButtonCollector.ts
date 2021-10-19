@@ -15,18 +15,14 @@ export const songButtonCollector = async (collected: Collection<string, MessageC
 		switch (id) {
 		case 'pause':
 			if (queue!.paused) {
-                queue!.resume()
-                collected.first()?.deferUpdate()
-                break
+                    queue!.resume()
 			}
             queue!.pause()
 			collected.first()?.deferUpdate()
 			break;
 		case 'resume':
 			if (!queue!.paused) {
-                queue!.pause()
-                collected.first()?.deferUpdate()
-                break
+                    queue!.pause()
 			}
             queue!.resume()
 			collected.first()?.deferUpdate()
