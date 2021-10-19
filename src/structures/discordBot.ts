@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Client as BotClient, ClientOptions, Message, MessageReaction } from 'discord.js'
+import { Client as BotClient, ClientOptions, DiscordAPIError, Message, MessageReaction, TextChannel } from 'discord.js'
 import { botConfig, IBotConfig } from '../config'
 import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
@@ -66,25 +67,48 @@ export class DiscordBot extends BotClient {
 
     	this.distube
     		.on('playSong', async (queue: Queue, song: Song) => {
-    			console.log('Playing new Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}`)
+    			console.log(`Playing new song - ${song.name}!`, `Queue songs length ${queue.songs.length}`)
     		})
     		.on('addSong', (queue: Queue, song: Song) => {
-    			console.log('Added a Song!', new Date().getMilliseconds(), `queue songs length ${queue.songs.length}`, `song name: ${song.name}` )
+    			console.log(`Added new song - ${song.name}!`, `Queue songs length ${queue.songs.length}`)
     		})
     		.on('addList', async (queue: Queue, playlist: Playlist) => {
-    			console.log('Added playlist!', `queue songs length ${queue.songs.length}`, `song name: ${playlist.name}`)
+    			console.log(`Added new playlist! - ${playlist.name}`, `Queue songs length ${queue.songs.length}`)
     		})
     		.on('searchResult', (message, result) => {
-    			const i = 0;
+    			const i = 0
     			console.log(message, '')
     		})
     	// DisTubeOptions.searchSongs = true
     		.on('searchCancel', (message) =>  console.log(message, 'Searching canceled')
     		)
-    		.on('error', (message, err) => console.log(message, `An error encountered: ${err}`)
+    		.on('error', (message: TextChannel, err: any) => {
+    			console.log(message, `An error encountered: ${err}`)
+    			if(err.name === 'PlayingError') {
+    				if(err.status === 429) {
+    					message.send({
+    						embeds: [
+    							createMessageEmbed({
+    								title: 'Error 429',
+    								description: 'You are being ratelimited'
+    							})
+    						]
+    					})
+    				}
+    			}
+
+    			message.send({
+    				embeds: [
+    					createMessageEmbed({
+    						title: `Error ${err.status}`,
+    						description: `${err.name}`
+    					})
+    				]
+    			})
+    		}
     		)
     		.on('disconnect', (queue: Queue) => {
-    			console.log('DISCONNECTED!', new Date().getMilliseconds() /*queue*/)
+    			console.log('DISCONNECTED!', /*queue*/)
     		})
     		.on('finish', (queue: Queue) => {
     			console.log('SONG FINISHED!', /*queue.listeners?.error.name*/)
