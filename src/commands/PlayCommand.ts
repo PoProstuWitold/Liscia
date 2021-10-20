@@ -75,6 +75,18 @@ export class PlayCommand extends BaseCommand {
 					console.log(err)
 				})
 				
+
+                message.client.distube.on('error', async (err: any) => {
+                    console.log('Error! \n', err)
+                    await newmsg.edit(
+                        {
+                            embeds: [createMessageEmbed({ title: 'Error', 
+                                description: 'Something went wrong with music player. Try again in few minutes :/' })],
+                        }
+                    )
+                    return
+                })
+
 				setInterval(async () => {
                     
 
