@@ -1,5 +1,5 @@
 script(src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js' defer='')
-.w-full.text-white.bg-gray-900(class='dark-mode:text-gray-200 dark-mode:bg-gray-800')
+.w-full.text-white.bg-gray-900.sticky.top-0.z-50(class='dark-mode:text-gray-200 dark-mode:bg-gray-800')
   .flex.flex-col.max-w-screen-xl.px-4.mx-auto(x-data='{ open: false }' class='md:items-center md:justify-between md:flex-row md:px-6 lg:px-8')
     .p-4.flex.flex-row.items-center.justify-between
       a.text-lg.font-semibold.tracking-widest.text-white.uppercase.rounded-lg(href='/' class='dark-mode:text-white focus:outline-none focus:shadow-outline') Liscia Elfrieden
@@ -8,7 +8,7 @@ script(src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.j
           path(x-show='!open' fill-rule='evenodd' d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z' clip-rule='evenodd')
           path(x-show='open' fill-rule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clip-rule='evenodd')
     nav.flex-col.flex-grow.pb-4.hidden(:class="{'flex': open, 'hidden': !open}" class='md:pb-0 md:flex md:justify-end md:flex-row')
-      a.px-4.py-2.mt-2.text-sm.font-semibold.bg-transparent.rounded-lg(class='dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 text-gray-900 focus:text-gray-900 bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' href='https://github.com/PoProstuWitold/liscia'  target='_blank') Github
+      a.px-4.py-2.mt-2.text-sm.font-semibold.bg-transparent.rounded-lg(class='text-gray-900 bg-gray-200 dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline' href='https://github.com/PoProstuWitold/liscia'  target='_blank') Github
       a.px-4.py-2.mt-2.text-sm.font-semibold.bg-transparent.rounded-lg(class='dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' href='/about') About
       .relative(@click.away='open = false' x-data='{ open: false }')
         

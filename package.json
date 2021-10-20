@@ -14,7 +14,8 @@
     "watch": "tsc -w",
     "prod": "yarn build && node dist/src/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix",
-    "tailwind:css": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
+    "tailwind:dev": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
+    "tailwind:prod": "NODE_ENV=production postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
     "postinstall": "yarn build"
   },
@@ -30,6 +31,7 @@
     "@types/tailwindcss": "^2.2.1",
     "autoprefixer": "^10.3.7",
     "compression": "^1.7.4",
+    "cssnano": "^5.0.8",
     "discord.js": "^13.1.0",
     "distube": "^3.0.0-beta.38",
     "dotenv": "^10.0.0",
@@ -46,11 +48,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/compression": "^1.7.2",
-    "@types/express": "^4.17.13",
-    "@types/node": "^16.9.0",
-    "@types/shelljs": "^0.8.9",
-    "@types/tailwindcss": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
