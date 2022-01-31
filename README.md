@@ -14,7 +14,7 @@ npm install
 ```
 or
 ```bash
-yarn install
+yarn
 ```
 
 ## Usage
