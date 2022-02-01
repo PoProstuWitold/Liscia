@@ -1,12 +1,14 @@
 import express, { Request, Response } from 'express'
 import path from 'path'
 import compression from 'compression'
+// import hbs from 'hbs'
+
 const app = express()
 console.log(path.join(__dirname, 'public'))
 // Express configuration
 app.set('port', process.env.PORT || 3000)
 app.set('views', path.join(__dirname, '../views'))
-app.set('view engine', 'pug')
+app.set('view engine', 'hbs')
 app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -18,15 +20,7 @@ app.use(
 
 //routes
 app.get('/', (req: Request, res: Response) => {
-	return res.render('index', {
-		title: 'Liscia Elfrieden'
-	})
-})
-
-app.get('/about', (req: Request, res: Response) => {
-	return res.render('about', {
-		title: 'About'
-	})
+	return res.render('index')
 })
 
 export default app

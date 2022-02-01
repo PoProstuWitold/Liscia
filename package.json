@@ -37,11 +37,12 @@
     "distube": "^3.3.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "hbs": "^4.2.0",
     "libsodium-wrappers": "^0.7.9",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
     "pretty-ms": "^7.0.1",
-    "pug": "^3.0.2",
     "shelljs": "^0.8.4",
     "tailwindcss": "^2.2.17",
     "tslib": "^2.3.1",
@@ -49,6 +50,7 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/hbs": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
