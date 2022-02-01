@@ -29,7 +29,8 @@ No API key is required
 ## TO DO
 - [x] Make basic music commands
 - [x] Add TypeScript decorators
-- [X] Fix issues
+- [X] Fix known issues
+- [ ] Refactor dashboard because it's ugly
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
