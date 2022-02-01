@@ -30,7 +30,7 @@ No API key is required
 - [x] Make basic music commands
 - [x] Add TypeScript decorators
 - [X] Fix known issues
-- [ ] Refactor dashboard because it's ugly
+- [X] Refactor dashboard because it's ugly
 
 ## KNOWN ISSUES
 - yarn package manager doesn't work with newest Distube(?)
