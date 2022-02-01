@@ -8,16 +8,16 @@
   "scripts": {
     "preinstall": "npm install -g pm2",
     "build-ts": "tsc",
-    "build": "yarn build-ts && yarn copy-static-assets",
+    "build": "npm run build-ts && npm run copy-static-assets",
     "dev": "ts-node-dev src/index.ts",
     "js": "tsc && node dist/src/index.js",
     "watch": "tsc -w",
-    "prod": "yarn build && node dist/src/index.js",
+    "prod": "npm run build && node dist/src/index.js",
     "lint": "eslint . --config=.eslintrc.json --fix",
     "tailwind:dev": "postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "tailwind:prod": "NODE_ENV=production postcss src/dashboard/src/public/styles/tailwind.css -o src/dashboard/src/public/styles/style.css",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
-    "postinstall": "yarn build"
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
