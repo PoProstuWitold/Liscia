@@ -32,5 +32,8 @@ No API key is required
 - [X] Fix known issues
 - [ ] Refactor dashboard because it's ugly
 
+## KNOWN ISSUES
+- yarn package manager doesn't work with newest Distube(?)
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

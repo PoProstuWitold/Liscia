@@ -1,4 +1,5 @@
-import { ActivityType, ColorResolvable } from 'discord.js'
+import { ColorResolvable, ExcludeEnum } from 'discord.js'
+import { ActivityTypes } from 'discord.js/typings/enums'
 /**
 *    Discord bot config.
 **/
@@ -6,7 +7,7 @@ if(!process.env.TOKEN) {
 	throw new Error('You need to specify your Discord bot token!')
 }
 
-export type Status = { type: 'PLAYING' | 'STREAMING' | 'LISTENING' | 'WATCHING' | 'CUSTOM' | 'COMPETING'; name: string; }
+export type Status = { type: ExcludeEnum<typeof ActivityTypes, 'CUSTOM'> | undefined; name: string; }
 
 export type IBotConfig = {
     token: string | undefined
@@ -42,7 +43,7 @@ export const botConfig: IBotConfig = {
 	totalShards: process.env.CONFIG_TOTALSHARDS?.toLowerCase() ?? 'auto',
 	fetchAllUsers: true,
 	status: {
-		type: process.env.STATUS_TYPE?.toUpperCase() as ActivityType | null ?? 'WATCHING',
+		type: 'WATCHING',
 		name: process.env.STATUS_ACTIVITY ?? 'Nekopara 3'
 	},
 	enableReactions: true,

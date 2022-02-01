@@ -54,7 +54,7 @@ export class PlayCommand extends BaseCommand {
 			})
 			
 			try {
-				await message.client.distube.playVoiceChannel(channel!, song, {
+				await message.client.distube.play(channel!, song, {
 					member: member as GuildMember,
 					message: message,
 					textChannel: guild.channels.cache.get(channelId)
@@ -98,7 +98,6 @@ export class PlayCommand extends BaseCommand {
 					const collector = message.channel.createMessageComponentCollector({
 						filter,
 						time: 10000,
-                        interactionType: 'MESSAGE_COMPONENT',
                         componentType: 'BUTTON',
                         max: 1
 					})

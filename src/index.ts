@@ -20,7 +20,7 @@ const client = new DiscordBot({
 		activities: [
 			{ 
 				name: botConfig.status.name, 
-				type: botConfig.status.type 
+				type: 'WATCHING'
 			}
 		]
 	},
@@ -58,9 +58,10 @@ const client = new DiscordBot({
 client.setMaxListeners(100)
 client.start()
 
-process.on('unhandledRejection', err => {
-	console.log('Unhandled rejection. You may have unsupported NodeJS version')
+process.on('unhandledRejection', (err: any) => {
 	log.error(err)
+	// console.log(err) DiscordAPIError: Unknown interaction
+	console.log('Unhandled rejection. It may be DiscordAPIError or you may have unsupported NodeJS version')
 })
 
 process.on('uncaughtException', err => {

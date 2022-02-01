@@ -7,6 +7,7 @@ export const currentSongEmbed = (
 	nextSong: string | undefined | null, 
 	previousSong: string | undefined | null
 ): MessageEmbed => {
+	// console.log('QUEUE: \n', queue?.songs)
 	return createMessageEmbed({ title: '**Music info**', description:
         `**There are **\`${queue?.songs.length}\`** songs in queue**`}).setImage(`${queue?.songs[0].thumbnail}`)
 		.addField('**Name**', `***${queue?.songs[0].name}***`)
@@ -19,4 +20,5 @@ export const currentSongEmbed = (
 		.addField('Next', `*${nextSong}*`)
 		.addField('Current', `*${queue?.songs[0].name}*`)
 		.addField('Previous', `*${previousSong}*`)
+		.addField('Requested by: ', `<@${queue?.songs[0].user?.id}>`)
 }

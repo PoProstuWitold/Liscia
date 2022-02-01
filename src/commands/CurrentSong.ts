@@ -49,7 +49,6 @@ export class CurrentSong extends BaseCommand {
 				const collector = message.channel.createMessageComponentCollector({
 					filter,
 					time: 10000,
-					interactionType: 'MESSAGE_COMPONENT',
 					componentType: 'BUTTON',
 					max: 1
 				})

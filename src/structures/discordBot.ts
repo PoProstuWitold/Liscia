@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Client as BotClient, ClientOptions, Interaction, Message, MessageReaction, PartialMessageReaction, TextChannel } from 'discord.js'
+import { Client as BotClient, ClientOptions, GuildTextBasedChannel, Interaction, Message, MessageReaction, PartialMessageReaction, TextChannel } from 'discord.js'
 import { botConfig, IBotConfig } from '../config'
 import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
@@ -11,6 +11,7 @@ import { Playlist, Queue, Song, DisTube, SearchResult } from 'distube'
 import SpotifyPlugin from '@distube/spotify'
 import SoundCloudPlugin from '@distube/soundcloud'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
+import { YtDlpPlugin } from '@distube/yt-dlp'
 
 export class DiscordBot extends BotClient {
 
@@ -37,8 +38,7 @@ export class DiscordBot extends BotClient {
     			liveBuffer: 60000,
     			dlChunkSize: 1024 * 1024 * 64,
     		},
-    		youtubeDL: true,
-    		updateYouTubeDL: true,
+    		youtubeDL: false,
     		plugins: [
     			new SpotifyPlugin({
     				api: {
@@ -48,7 +48,8 @@ export class DiscordBot extends BotClient {
     				parallel: true,
     				emitEventsAfterFetching: true
     			}),
-    			new SoundCloudPlugin()
+    			new SoundCloudPlugin(),
+    			new YtDlpPlugin()
     		]
     	}
     )
@@ -64,7 +65,7 @@ export class DiscordBot extends BotClient {
     	})
         
     	await this.addListeners()
-
+    	this.distube.setMaxListeners(50)
     	this.distube
     		.on('playSong', async (queue: Queue, song: Song) => {
     			console.log(`Playing new song - ${song.name}!`, `Queue songs length ${queue.songs.length}`)
@@ -84,7 +85,7 @@ export class DiscordBot extends BotClient {
     			// console.log('Message: ', message)
     		}
     		)
-    		.on('error', async (message: TextChannel, err: any) => {
+    		.on('error', async (message: GuildTextBasedChannel, err: any) => {
     			console.log('An error encountered: ', err)
     			console.log('Message: ', message)
     			if(err.name === 'PlayingError') {
