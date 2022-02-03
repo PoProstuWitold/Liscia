@@ -31,6 +31,7 @@
     "@types/shelljs": "^0.8.9",
     "@types/tailwindcss": "^2.2.1",
     "autoprefixer": "^10.3.7",
+    "axios": "^0.25.0",
     "compression": "^1.7.4",
     "cssnano": "^5.0.8",
     "discord.js": "^13.6.0",

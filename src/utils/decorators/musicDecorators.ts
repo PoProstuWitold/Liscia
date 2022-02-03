@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Message } from 'discord.js';
@@ -44,8 +45,28 @@ export function IsValidVoiceChannel(): any {
 	})
 }
 
-export function ArgsNotEmpty(): any {
+export function ArgsNotEmpty(strings?: string[], count?: number): any {
 	return Inhibit((message: Message, args: string[]) => {
+		if(strings) {
+			console.log(strings, args);
+			if(!strings.some(item => args.includes(item))) {
+				return message.reply({
+					embeds: [
+						createMessageEmbed({ title: 'Error', description: `No arg matches any of required: ${strings.toString()}` })
+					],
+				})	
+			}
+
+			if(count) {
+				if(count < args.length) {
+					return message.reply({
+						embeds: [
+							createMessageEmbed({ title: 'Error', description: `You must use no more than ${count} args` })
+						],
+					})
+				}
+			}
+		}
 		if(!args[0]) {
 			return message.reply({
 				embeds: [
