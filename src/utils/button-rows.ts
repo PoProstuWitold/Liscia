@@ -4,15 +4,15 @@ const row = new MessageActionRow()
 	.addComponents(
 		new MessageButton()
 			.setCustomId('pause')
-			.setLabel('Pause')
+			.setLabel('⏸')
 			.setStyle('SUCCESS'),
 		new MessageButton()
 			.setCustomId('resume')
-			.setLabel('Resume')
+			.setLabel('▶')
 			.setStyle('SUCCESS'),
 		new MessageButton()
 			.setCustomId('stop')
-			.setLabel('Stop')
+			.setLabel('⏹')
 			.setStyle('DANGER')						
 	)
 
@@ -20,11 +20,11 @@ const row2 = new MessageActionRow()
 	.addComponents(
 		new MessageButton()
 			.setCustomId('skip')
-			.setLabel('Next')
+			.setLabel('⏭')
 			.setStyle('SECONDARY'),
 		new MessageButton()
 			.setCustomId('previous')
-			.setLabel('Previous')
+			.setLabel('⏮')
 			.setStyle('SECONDARY')						
 	)
 
@@ -32,11 +32,11 @@ const row3 = new MessageActionRow()
 	.addComponents(
 		new MessageButton()
 			.setCustomId('volume-up')
-			.setLabel('Volume Up')
+			.setLabel('🔊')
 			.setStyle('PRIMARY'),
 		new MessageButton()
 			.setCustomId('volume-down')
-			.setLabel('Volume Down')
+			.setLabel('🔉')
 			.setStyle('PRIMARY'),
 		new MessageButton()
 			.setLabel('Author')
