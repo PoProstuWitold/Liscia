@@ -20,8 +20,8 @@ yarn
 ## Usage
 1. Create ``.env`` file in project root directory
 2. Add following line: `TOKEN=YOUR_DISCORD_BOT_TOKEN`
-2.1. Optionally add other properties included in ``.env.sample``
-3. Type one of the corresponding command from ``package.json``
+3. Optionally add other properties included in ``.env.sample``
+4. Type one of the corresponding command from ``package.json``
 
 
 No API key is required
@@ -32,10 +32,10 @@ No API key is required
 - [x] Add TypeScript decorators
 - [X] Fix known issues
 - [X] Refactor dashboard because it's ugly
-- [ ] Refactor commands (especially play and current)
+- [X] Refactor commands (especially play and current)
+- [X] Refactor butttons
+- [X] Set permissions for each command
 - [ ] Create docs of each command
-- [ ] Refactor butttons
-- [ ] Set permissions for each command
 
 ## KNOWN ISSUES
 - yarn package manager doesn't work with newest Distube(?)
