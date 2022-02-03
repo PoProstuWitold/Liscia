@@ -20,6 +20,7 @@ yarn
 ## Usage
 1. Create ``.env`` file in project root directory
 2. Add following line: `TOKEN=YOUR_DISCORD_BOT_TOKEN`
+2.1. Optionally add other properties included in ``.env.sample``
 3. Type one of the corresponding command from ``package.json``
 
 

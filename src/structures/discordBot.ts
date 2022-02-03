@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -42,8 +43,8 @@ export class DiscordBot extends BotClient {
     		plugins: [
     			new SpotifyPlugin({
     				api: {
-    					clientId: botConfig.SPOTIFY_API.clientId,
-    					clientSecret: botConfig.SPOTIFY_API.clientSecret,
+    					clientId: botConfig.SPOTIFY_API.clientId!,
+    					clientSecret: botConfig.SPOTIFY_API.clientSecret!,
     				},
     				parallel: true,
     				emitEventsAfterFetching: true
@@ -144,7 +145,8 @@ export class DiscordBot extends BotClient {
     		})
     		.on('interactionCreate', async (interaction: Interaction) => {
     			if(interaction.isButton()) {
-    				console.log(`Button interaction id ${interaction.customId} triggered!`, interaction)
+    				// console.log(`Button interaction id ${interaction.customId} triggered!`, interaction)
+    				console.log('Button interaction triggered')
     			}
     		})
     		.on('error', async (err: any) => {
