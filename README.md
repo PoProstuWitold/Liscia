@@ -31,6 +31,10 @@ No API key is required
 - [x] Add TypeScript decorators
 - [X] Fix known issues
 - [X] Refactor dashboard because it's ugly
+- [ ] Refactor commands (especially play and current)
+- [ ] Create docs of each command
+- [ ] Refactor butttons
+- [ ] Set permissions for each command
 
 ## KNOWN ISSUES
 - yarn package manager doesn't work with newest Distube(?)
