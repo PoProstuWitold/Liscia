@@ -1,8 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { DefineCommand } from '../utils/decorators/defineCommand'
 import { BaseCommand } from '../structures/baseCommand'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
@@ -15,8 +10,8 @@ import { ArgsNotEmpty, IsInVoiceChannel, IsValidVoiceChannel } from '../utils/de
 	description: 'Seek to given time',
 	name: 'seek',
 	usage: `${botConfig.prefix}seek <time in seconds>`,
-	cooldown: 2,
-	permissions: ['ADMINISTRATOR']
+	cooldown: 10,
+	permissions: []
 })
 export class SeekCommand extends BaseCommand {
     @IsInVoiceChannel()
@@ -24,6 +19,11 @@ export class SeekCommand extends BaseCommand {
     @ArgsNotEmpty()
 	public async execute(message: Message, args: string[]): Promise<void> {
 		const queue = message.client.distube.getQueue(message)
+
+		if(!queue) {
+			return undefined
+		}
+
 		if(!args[0]) {
 			message.channel.send({
 				embeds: [
@@ -45,7 +45,7 @@ export class SeekCommand extends BaseCommand {
 				})
 			]
 		})
-		queue!.seek(time)
+		queue.seek(time)
 		message.channel.send({
         	embeds: [
         		createMessageEmbed({

@@ -67,10 +67,6 @@ export class PlayCommand extends BaseCommand {
 				).catch((err: any)=> {
 					console.log(err)
 				})
-				
-				setTimeout(() => {
-					customMessage.delete()
-				}, 7000)
 
 			} catch (err) {
 				message.reply({

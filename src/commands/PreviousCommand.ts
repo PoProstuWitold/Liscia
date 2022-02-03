@@ -1,8 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { DefineCommand } from '../utils/decorators/defineCommand'
 import { BaseCommand } from '../structures/baseCommand'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
@@ -16,7 +11,7 @@ import { DoesMusicQueueExist, IsInVoiceChannel, IsValidVoiceChannel } from '../u
 	name: 'previous',
 	usage: `${botConfig.prefix}previous`,
 	cooldown: 2,
-	permissions: ['ADMINISTRATOR']
+	permissions: []
 })
 export class PreviousCommand extends BaseCommand {
     @IsInVoiceChannel()
@@ -24,15 +19,20 @@ export class PreviousCommand extends BaseCommand {
     @DoesMusicQueueExist()
 	public async execute(message: Message): Promise<void> {
 		const queue = message.client.distube.getQueue(message)
+
+		if(!queue) {
+			return undefined
+		}
+
 		try {
-			const song = await queue!.previous()
-			message.channel.send({
-				embeds: [
-					createMessageEmbed({
-						title: 'Success',
-						description: `Now playing: ${song.name}`
-					})
-				]
+			const song = await queue.previous()
+			await message.channel.send({
+				embeds: [createMessageEmbed({ title: `🎶 Playing previous song - ${song.name}`, 
+					description: 
+					` 
+                        \`\`\`\n${song.url}\n\`\`\`
+                    ` 
+				})]
 			})
 		} catch (err) {
 			console.log(err)
@@ -40,7 +40,7 @@ export class PreviousCommand extends BaseCommand {
 				embeds: [
 					createMessageEmbed({
 						title: 'Error',
-						description: 'Unexpected error, tell Witold as fast as possible'
+						description: 'There is no previous song in this queue'
 					})
 				]
 			})

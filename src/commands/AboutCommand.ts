@@ -10,13 +10,15 @@ import { botConfig } from '../config'
 	name: 'about',
 	usage: `${botConfig.prefix}about`,
 	cooldown: 4,
-	permissions: ['ADMINISTRATOR']
+	permissions: []
 })
 export class AboutCommand extends BaseCommand {
 	public async execute(message: Message): Promise<void> {
 		message.channel.send({
 			embeds: [
-				createMessageEmbed({ title: 'Basic info', description: 'Bot owner: **Witq#0737**' })
+				createMessageEmbed({ title: 'Basic info', description: 'Bot owner: **PoProstuWitold**' })
+					.addField('Server name', `${message.guild?.name}`)
+					// TO DO
 			]
 		})
 	}

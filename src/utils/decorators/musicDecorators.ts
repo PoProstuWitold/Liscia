@@ -25,7 +25,7 @@ export function IsInVoiceChannel(): any {
 	return Inhibit((message: Message) => {
 		if (!message.member?.voice.channel) {
 			return message.channel.send({
-				embeds: [ createMessageEmbed({ title: 'Error', description: 'Please join VoiceChannel First!' })]
+				embeds: [ createMessageEmbed({ title: 'Error', description: 'Please join voice channel!' })]
 			})
 		}
 	})
@@ -49,7 +49,7 @@ export function ArgsNotEmpty(): any {
 		if(!args[0]) {
 			return message.reply({
 				embeds: [
-					createMessageEmbed({ title: 'Error', description: 'Please add a Search Query!!!!!!!!' })
+					createMessageEmbed({ title: 'Error', description: 'Please add args!' })
 				],
 			})			
 		}

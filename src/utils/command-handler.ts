@@ -99,7 +99,9 @@ export class CommandHandler extends Collection<string, ICommandComponent> {
     		// if (this.client.config.owners.includes(message.author.id)) timestamps?.delete(message.author.id)
     	}
     	try {
-    		return command.execute(message, args)
+    		await command.execute(message, args)
+    		await reactor.success(message)
+    		return 
     	} catch (e) {
     		this.client.logger.error('COMMAND_HANDLER_ERR:', e)
     	} finally {

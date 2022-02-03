@@ -32,9 +32,9 @@ export class HelpCommand extends BaseCommand {
 				embeds: [
 					createMessageEmbed({ title: 'Information for all available commands', description: `
                         ${message.client.commands.filter(cmd => !cmd.meta.disable).map(c => `**\`${c.meta.name}\`**`).join(' ')}
-                    ` }).setAuthor(`${message.client.user!.username} - Command List`)
+                    ` }).setAuthor({ name: `${message.client.user!.username} - Command List` })
 						.setThumbnail(message.client.user?.displayAvatarURL() as string)
-						.setFooter(`Use ${message.client.config.prefix}help <command> to get information on a specific command.`)
+						.setFooter({ text: `Use ${message.client.config.prefix}help <command> to get information on a specific command.` })
 				]
 			})
 		}

@@ -1,8 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { DefineCommand } from '../utils/decorators/defineCommand'
 import { BaseCommand } from '../structures/baseCommand'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
@@ -15,8 +10,8 @@ import { ArgsNotEmpty, IsInVoiceChannel, IsValidVoiceChannel } from '../utils/de
 	description: 'Changes volume',
 	name: 'volume',
 	usage: `${botConfig.prefix}volume <number between 1-100>`,
-	cooldown: 2,
-	permissions: ['ADMINISTRATOR']
+	cooldown: 5,
+	permissions: []
 })
 export class VolumeCommand extends BaseCommand {
     @IsInVoiceChannel()
@@ -24,23 +19,34 @@ export class VolumeCommand extends BaseCommand {
     @ArgsNotEmpty()
 	public async execute(message: Message, args: string[]): Promise<void> {
 		const queue = message.client.distube.getQueue(message)
+		
+		if(!queue) {
+			return undefined
+		}
+
 		const volume = parseInt(args[0])
-		if (isNaN(volume)) message.channel.send({
-			embeds: [
-				createMessageEmbed({
-					title: 'Error',
-					description: 'Please, enter a valid number'
-				})
-			]
-		})
-        queue!.setVolume(volume)
-        message.channel.send({
+		if (isNaN(volume) || volume > botConfig.maxVolume) {
+			message.channel.send({
+				embeds: [
+					createMessageEmbed({
+						title: 'Error',
+						description: `Please, enter a valid number lower than max volume ${botConfig.maxVolume}`
+					})
+				]
+			})
+
+			return undefined
+		}
+
+		queue.setVolume(volume)
+
+		message.channel.send({
         	embeds: [
         		createMessageEmbed({
         			title: 'Success',
         			description: `Volume set to \`${volume}\``
         		})
         	]
-        })
+		})
 	}
 }

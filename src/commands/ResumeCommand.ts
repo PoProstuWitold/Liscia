@@ -1,8 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { DefineCommand } from '../utils/decorators/defineCommand'
 import { BaseCommand } from '../structures/baseCommand'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
@@ -16,7 +11,7 @@ import { DoesMusicQueueExist, IsInVoiceChannel, IsValidVoiceChannel } from '../u
 	name: 'resume',
 	usage: `${botConfig.prefix}resume`,
 	cooldown: 2,
-	permissions: ['ADMINISTRATOR']
+	permissions: []
 })
 export class ResumeCommand extends BaseCommand {
     @IsInVoiceChannel()
@@ -24,8 +19,13 @@ export class ResumeCommand extends BaseCommand {
     @DoesMusicQueueExist()
 	public async execute(message: Message): Promise<void> {
 		const queue = message.client.distube.getQueue(message)
-		if (!queue!.paused) {
-			queue!.pause()
+
+		if(!queue) {
+			return undefined
+		}
+
+		if (!queue.paused) {
+			queue.pause()
 			message.channel.send({
 				embeds: [
 					createMessageEmbed({
@@ -37,7 +37,7 @@ export class ResumeCommand extends BaseCommand {
 			return
 		}
         
-		queue!.resume()
+		queue.resume()
 		message.channel.send({
 			embeds: [
 				createMessageEmbed({
