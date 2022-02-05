@@ -36,6 +36,7 @@ No API key is required
 - [X] Refactor butttons
 - [X] Set permissions for each command
 - [ ] Create docs of each command
+- [ ] Add rate limit error message
 
 ## KNOWN ISSUES
 - yarn package manager doesn't work with newest Distube(?)
