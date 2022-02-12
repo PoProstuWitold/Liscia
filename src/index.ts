@@ -8,13 +8,22 @@ config()
 import { createLogger } from './utils/logger'
 import { botConfig } from './config'
 import { DiscordBot } from './structures/discordBot'
-import { Intents, LimitedCollection, Options } from 'discord.js'
+import { Intents, Options, Sweepers } from 'discord.js'
 
 const log = createLogger('unhandled-errors', botConfig.debug)
 
 const client = new DiscordBot({
 	shards: 'auto',
 	partials: ['MESSAGE', 'REACTION', 'CHANNEL'],
+	presence: {
+		status: 'online',
+		activities: [
+			{ 
+				name: botConfig.status.name, 
+				type: 'WATCHING'
+			}
+		]
+	},
 	restTimeOffset:  0,
 	allowedMentions: { 
 		parse: [] 
@@ -23,14 +32,14 @@ const client = new DiscordBot({
 		MessageManager: { // Sweep messages every 5 minutes, removing messages that have not been edited or created in the last 3 hours
 			maxSize: Infinity,
 			sweepInterval: 300, // 5 Minutes
-			sweepFilter: LimitedCollection.filterByLifetime({
+			sweepFilter: Sweepers.filterByLifetime({
 				lifetime: 10800 // 3 Hours
 			})
 		},
 		ThreadManager: { // Sweep threads every 5 minutes, removing threads that have been archived in the last 3 hours
 			maxSize: Infinity,
 			sweepInterval: 300, // 5 Minutes
-			sweepFilter: LimitedCollection.filterByLifetime({
+			sweepFilter: Sweepers.filterByLifetime({
 				lifetime: 10800, // 3 Hours
 				getComparisonTimestamp: e => e.archiveTimestamp!,
 				excludeFromSweep: e => !e.archived

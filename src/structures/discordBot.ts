@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Client as BotClient, ClientOptions, GuildTextBasedChannel, Interaction, Message, MessageReaction, PartialMessageReaction, TextChannel } from 'discord.js'
+import { Client as BotClient, ClientOptions, GuildTextBasedChannel, Interaction, Message, MessageReaction, PartialMessageReaction } from 'discord.js'
 import { botConfig, IBotConfig } from '../config'
 import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
@@ -61,15 +61,6 @@ export class DiscordBot extends BotClient {
     }
 
     public async start(): Promise<DiscordBot> {
-    	this.user?.setPresence({
-    		status: 'online',
-    		activities: [
-    			{
-    				name: `${botConfig.status.name} | ${this.guilds.cache.size}`,
-    				type: 'WATCHING'
-    			}
-    		]
-    	})
 		
     	this.on('ready', () => {
     		this.commands.load()
