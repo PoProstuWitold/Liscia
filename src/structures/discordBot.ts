@@ -62,6 +62,15 @@ export class DiscordBot extends BotClient {
 
     public async start(): Promise<DiscordBot> {
     	this.on('ready', () => {
+    		this.options.presence = {
+    			status: 'online',
+    			activities: [
+    				{ 
+    					name: `${botConfig.status.name} | ${this.guilds.cache.size}`, 
+    					type: 'WATCHING'
+    				}
+    			]
+    		}
     		this.commands.load()
     		this.logger.info(`Logged in as ${this.user?.tag}! GLHF!`)
     	})
