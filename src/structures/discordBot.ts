@@ -90,13 +90,14 @@ export class DiscordBot extends BotClient {
     		}
     		)
     		//@ts-ignore
-    		.on('error', (channel: GuildTextBasedChannel, error: DisTubeError) => {
+    		.on('error', (channel: GuildTextBasedChannel, error: DistubePlayingError) => {
     			console.error('An error encountered: ', error)
+    			console.error('Code: ', error.errorCode || error.code || error.statusCode)
     			console.log('Message: ', channel)
     			return channel.send({
     				embeds: [
     					createMessageEmbed({
-    						title: `Error ${error.errorCode || error.code}`,
+    						title: `Error ${error.errorCode || error.code || error.statusCode}`,
     						description: `${error.name}`
     					})
     				]
