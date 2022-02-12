@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
@@ -8,7 +9,7 @@ import { CommandHandler } from '../utils/command-handler'
 import { createLogger } from '../utils/logger'
 import { resolve } from 'path'
 import { EventsLoader } from '../utils/event-loader'
-import { Playlist, Queue, Song, DisTube, SearchResult } from 'distube'
+import { Playlist, Queue, Song, DisTube, SearchResult, DisTubeError } from 'distube'
 import SpotifyPlugin from '@distube/spotify'
 import SoundCloudPlugin from '@distube/soundcloud'
 import { createMessageEmbed } from '../utils/createEmbedMessage'
@@ -86,28 +87,15 @@ export class DiscordBot extends BotClient {
     			// console.log('Message: ', message)
     		}
     		)
-    		.on('error', async (message: GuildTextBasedChannel, err: any) => {
-    			console.log('An error encountered: ', err)
-    			console.log('Message: ', message)
-    			if(err.name === 'PlayingError') {
-    				if(err.status === 429) {
-    					await message.send({
-    						embeds: [
-    							createMessageEmbed({
-    								title: 'Error 429',
-    								description: 'You are being ratelimited'
-    							})
-    						]
-    					})
-    				}
-    				return
-    			}
-
-    			message.send({
+    		//@ts-ignore
+    		.on('error', (channel: GuildTextBasedChannel, error: DisTubeError) => {
+    			console.error('An error encountered: ', error)
+    			console.log('Message: ', channel)
+    			return channel.send({
     				embeds: [
     					createMessageEmbed({
-    						title: `Error ${err.status}`,
-    						description: `${err.name}`
+    						title: `Error ${error.errorCode || error.code}`,
+    						description: `${error.name}`
     					})
     				]
     			})

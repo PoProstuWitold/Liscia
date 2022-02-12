@@ -9,7 +9,8 @@ import { currentSongEmbed } from '../utils/currentSongEmbed'
 const wait = util.promisify(setTimeout)
 
 export const editCustomMessage = async (customMessage: any, queue: any, nextSong: any, previousSong: any) => {
-	await customMessage.edit({
+	// console.log('customMessage.id from function', customMessage.id)
+	return await customMessage.edit({
 		embeds: [
 			currentSongEmbed(queue, nextSong, previousSong)
 		],
@@ -47,25 +48,25 @@ export const songButtonCollector = async (reaction: MessageComponentInteraction,
 
 		switch (id) {
 		case 'pause':
-			await wait(1000)
+			// await wait(1000)
 			_queue = queue.pause()
-			await wait(750)
+			// await wait(750)
 			await editCustomMessage(customMessage, _queue, nextSong, previousSong)
-			await wait(750)
+			// await wait(750)
 			reaction.deferUpdate()
 			break;
 		case 'resume':
-			await wait(1000)
+			// await wait(1000)
 			_queue = queue.resume()
-			await wait(750)
+			// await wait(750)
 			await editCustomMessage(customMessage, _queue, nextSong, previousSong)
-			await wait(750)
+			// await wait(750)
 			reaction.deferUpdate()
 			break;
 		case 'stop':
 			queue.stop()
 			await editCustomMessage(customMessage, queue, nextSong, previousSong)
-			await wait(2000)
+			// await wait(2000)
 			customMessage.delete()
 			reaction.deferUpdate()
 			break;
@@ -92,13 +93,13 @@ export const songButtonCollector = async (reaction: MessageComponentInteraction,
 		case 'volume-up':
 			queue?.setVolume(queue?.volume + 5)
 			editCustomMessage(customMessage, queue, nextSong, previousSong)
-			await wait(1000)
+			// await wait(1000)
 			reaction.deferUpdate()
 			break;
 		case 'volume-down':
 			queue?.setVolume(queue?.volume - 5)
 			editCustomMessage(customMessage, queue, nextSong, previousSong)
-			await wait(1000)
+			// await wait(1000)
 			reaction.deferUpdate()
 			break;
 		default:

@@ -34,6 +34,7 @@
     "axios": "^0.25.0",
     "compression": "^1.7.4",
     "cssnano": "^5.0.8",
+    "debounce": "^1.2.1",
     "discord.js": "^13.6.0",
     "distube": "^3.3.0",
     "dotenv": "^10.0.0",
@@ -51,6 +52,7 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/debounce": "^1.2.1",
     "@types/hbs": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
