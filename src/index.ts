@@ -15,15 +15,6 @@ const log = createLogger('unhandled-errors', botConfig.debug)
 const client = new DiscordBot({
 	shards: 'auto',
 	partials: ['MESSAGE', 'REACTION', 'CHANNEL'],
-	presence: {
-		status: 'online',
-		activities: [
-			{ 
-				name: botConfig.status.name, 
-				type: 'WATCHING'
-			}
-		]
-	},
 	restTimeOffset:  0,
 	allowedMentions: { 
 		parse: [] 
