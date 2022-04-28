@@ -17,11 +17,11 @@ import { YtDlpPlugin } from '@distube/yt-dlp'
 
 export class DiscordBot extends BotClient {
 
-    public readonly config: IBotConfig = botConfig
-    public readonly commands = new CommandHandler(this, resolve(__dirname, '..', 'commands'))
-    public readonly events = new EventsLoader(this, resolve(__dirname, '..', 'events'))
-    public readonly logger = createLogger('main', this.config.debug)
-    public readonly distube: DisTube = new DisTube(this, 
+	public readonly config: IBotConfig = botConfig
+	public readonly commands = new CommandHandler(this, resolve(__dirname, '..', 'commands'))
+	public readonly events = new EventsLoader(this, resolve(__dirname, '..', 'events'))
+	public readonly logger = createLogger('main', this.config.debug)
+	public readonly distube: DisTube = new DisTube(this, 
     	{
     		emitNewSongOnly: true,
     		leaveOnEmpty: true,
@@ -54,13 +54,13 @@ export class DiscordBot extends BotClient {
     			new YtDlpPlugin()
     		]
     	}
-    )
+	)
 
-    constructor(options: ClientOptions) {
+	constructor(options: ClientOptions) {
     	super(options)
-    }
+	}
 
-    public async start(): Promise<DiscordBot> {
+	public async start(): Promise<DiscordBot> {
 		
     	this.on('ready', () => {
     		this.commands.load()
@@ -127,9 +127,9 @@ export class DiscordBot extends BotClient {
     	await this.login(this.config.token)
 
     	return this
-    }
+	}
 
-    private async addListeners(): Promise<void> {
+	private async addListeners(): Promise<void> {
     	this
     		.on('messageCreate', async (message: Message) => {
     			this.commands.handle(message)
@@ -155,5 +155,5 @@ export class DiscordBot extends BotClient {
     		.on('messageReactionAdd', async (reaction: MessageReaction | PartialMessageReaction) => {
     			console.log('Reaction added!', reaction.emoji.name)
     		})
-    }
+	}
 }
